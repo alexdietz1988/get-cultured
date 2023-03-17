@@ -1,51 +1,76 @@
 import { useState } from "react";
 
 import { books, authors } from "../data/books/script.js";
-import { albumsProcessed as albums, artistsProcessed as artists } from "../data/music/script.js";
+import { albums, artists } from "../data/music/script.js";
 
 import { Display } from "./Display.js";
 import { Controls } from "./Controls.js";
 
 function App() {
-
   const dateRangeDefault = {start: -700, end: 2023};
+
   const [mediaType, setMediaType] = useState('literature');
   const [genre, setGenre] = useState('fiction');
   const [media, setMedia] = useState('works');
   const [dateRange, setDateRange] = useState(dateRangeDefault);
+  const [selectedCreator, setSelectedCreator] = useState('');
+  const [selectedWork, setSelectedWork] = useState('');
+
+  const [view, setView] = useState('table');
+  const [displayLimit, setDisplayLimit] = useState(25);
+
+  const restoreDefaults = () => {
+    setGenre('fiction');
+    setMedia('works');
+    setDateRange(settings.dateRangeDefault);
+    setSelectedCreator('');
+    setSelectedWork('');
+    setView('table');
+  }
+
   const dataTypes = {
     literature: {works: books[genre], creators: authors[genre]},
     music: {works: albums, creators: artists},
   }
+  function getSpecialNames() {
+    if (mediaType === 'literature') {
+      return {works: 'books', creators: 'authors'};
+    }
+    if (mediaType === 'music') {
+      return {works: 'albums', creators: 'artists'};
+    }
+  }
+  const specialNames = getSpecialNames();
   const data = dataTypes[mediaType][media];
 
   function filter(start, end) {
-    const displayLimit = 100;
     const filtered = [];
-    for (let i = 0; i < data.length && filtered.length <= displayLimit; i++) {
-        if (data[i].year >= start && data[i].year < end)  {
-            filtered.push(data[i]);
-        }
+    for (let i = 0; i < data.length && filtered.length < displayLimit; i++) {
+      const inDateRange = data[i].year >= start && data[i].year < end;
+      const creatorMatch = selectedCreator === '' || selectedCreator === data[i].creator;
+      const workMatch = selectedWork === '' || selectedWork === data[i].title;
+      if (inDateRange && creatorMatch && workMatch) {
+          filtered.push(data[i]);
+      }
     }
     return filtered;
   }
   const filtered = filter(dateRange.start, dateRange.end);
-
+  const settings = { dateRange, dateRangeDefault, mediaType, genre, media, selectedCreator, selectedWork, specialNames, view, displayLimit };
+  const settingsHandlers = { setDateRange, setMediaType, setGenre, setMedia, setSelectedCreator, setSelectedWork, setView, setDisplayLimit, restoreDefaults };
+  
   return (
     <>
       <Controls
-        dateRangeDefault={dateRangeDefault}
-        dateRange={dateRange}
-        setDateRange={setDateRange}
-        mediaType={mediaType}
-        setMediaType={setMediaType}
-        genre={genre}
-        setGenre={setGenre}
-        media={media}
-        setMedia={setMedia}
+        settings={settings}
+        settingsHandlers={settingsHandlers}
         data={data}
       />
-      <Display filtered={filtered} media={media} />
+      <Display
+        settings={settings}
+        settingsHandlers={settingsHandlers}
+        filtered={filtered}
+      />
     </>)
 }
 
