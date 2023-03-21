@@ -91,8 +91,8 @@ export const Display = ({ settings, settingsHandlers, filtered }) => {
   )
 
   return (
-    <>
+    <section className='section pt-0'>
       {settings.view === 'table' ? tableView() : compactView()}
-    </>
+    </section>
     );
 }

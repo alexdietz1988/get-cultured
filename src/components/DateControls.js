@@ -45,10 +45,10 @@ export function DateControls({settings, settingsHandlers, data}) {
         return buttons;
     }
     return(
-        <div className='m-2'>
+        <>
             {settings.mediaType === 'literature'
                 ? (
-            <div className='m-2'>
+            <div className='buttons my-0 has-addons'>
                 <button
                     key={'earlier'}
                     className={settings.dateRange.end <= 1500 ? 'button is-primary' : 'button'}
@@ -62,10 +62,10 @@ export function DateControls({settings, settingsHandlers, data}) {
             </div>
             )
             : null}
-            <div className='m-2'>{settings.dateRange.end - settings.dateRange.start <= 100 || settings.mediaType === 'music'
+            <div className='buttons my-0 has-addons'>{settings.dateRange.end - settings.dateRange.start <= 100 || settings.mediaType === 'music'
                 ? dateButtons(10)
                 : null}</div>
-            <div className='m-2'>{settings.dateRange.end - settings.dateRange.start <= 10 ? dateButtons(1) : null}</div>
-        </div>
+            <div className='buttons my-0 has-addons'>{settings.dateRange.end - settings.dateRange.start <= 10 ? dateButtons(1) : null}</div>
+        </>
     )
 }
