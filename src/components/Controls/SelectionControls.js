@@ -1,12 +1,19 @@
-export const SelectionControls = ({ categories, displaySettings, utilities }) => {
+export const SelectionControls = ({ data, categories, displaySettings, utilities }) => {
+    const { setNewFilters } = data.handlers;
     const { setMediaType, setEntryType, setList } = categories.handlers;
     const { dateRangeDefault, displayYear, savedSettings } = utilities;
     const { dateRange, selectedCreator } = displaySettings;
     const { setDateRange, setSelectedCreator, setView } = displaySettings.handlers;
-    const defaultDates = dateRange.start === dateRangeDefault.start && dateRange.end === dateRangeDefault.end;
+    const defaultDates = (dateRange.start === dateRangeDefault.start) && 
+        (dateRange.end === dateRangeDefault.end);
     const selectedDateTag = !defaultDates
         ? (
-            <span className='tag is-medium is-warning mr-2' onClick={() => setDateRange(dateRangeDefault)}>
+            <span 
+                className='tag is-medium is-warning mr-2'
+                onClick={() => {
+                    setDateRange(dateRangeDefault);
+                    setNewFilters(true);
+                    }}>
                 {dateRange.end === dateRange.start + 1 
                     ? displayYear(dateRange.start) 
                     : displayYear(dateRange.start) + '–' + displayYear(dateRange.end)}
@@ -23,13 +30,14 @@ export const SelectionControls = ({ categories, displaySettings, utilities }) =>
                 setList(savedSettings.list);
                 setDateRange(savedSettings.dateRange);
                 setView(savedSettings.view);
+                setNewFilters(true);
                 }}>
                 {selectedCreator}
                 <button className="delete is-small"></button>
             </span>
         )
         : <></>;
-    return !defaultDates || selectedCreator && (
+    return (!defaultDates || selectedCreator) && (
             <>
                 {selectedDateTag}
                 {selectedCreatorTag}

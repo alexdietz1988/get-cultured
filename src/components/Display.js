@@ -1,4 +1,6 @@
-export const Display = ({ entries, categories, displaySettings, utilities }) => {
+export const Display = ({ data, categories, displaySettings, utilities }) => {
+  const { entriesFiltered, entriesToDisplay } = data;
+  const { setNewFilters } = data.handlers;
   const { mediaType, entryType, list } = categories;
   const { setEntryType } = categories.handlers;
   const { dateRange, view, displayLimit } = displaySettings;
@@ -16,23 +18,27 @@ export const Display = ({ entries, categories, displaySettings, utilities }) => 
       <thead>
         <tr>
           <th>Rank</th>
-          <th style={{width: '250px'}}>{specialNames[mediaType].creators[0].toUpperCase() + specialNames[mediaType].creators.slice(1,-1)}</th>
+          <th style={{width: '250px'}}>
+            {specialNames[mediaType].creators[0].toUpperCase() + specialNames[mediaType].creators.slice(1,-1)}
+          </th>
           <th style={{width: '250px'}}>Title</th>
           <th>Year</th>
         </tr>
       </thead>
       <tbody>
-      {entries.toDisplay.map((entry,i) => 
+      {entriesToDisplay.map((entry,i) => 
           <tr key={'item' + i}>
             <td>{entry.rank}</td>
             <td onClick={() => {
               setSelectedCreator(entry.creator);
               setDateRange(dateRangeDefault);
+              setNewFilters(true);
               }}><a>{entry.creator}</a></td>
             <td><em>{entry.title}</em></td>
             <td onClick={() => {
               setSelectedCreator('');
               setDateRange({start: entry.year, end: entry.year + 1});
+              setNewFilters(true);
             }}><a>{displayYear(entry.year)}</a></td>
           </tr>
       )}
@@ -44,17 +50,20 @@ export const Display = ({ entries, categories, displaySettings, utilities }) => 
         <thead>
           <tr>
             <th>Rank</th>
-            <th>{specialNames[mediaType].creators[0].toUpperCase() + specialNames[mediaType].creators.slice(1,-1)}</th>
+            <th>
+              {specialNames[mediaType].creators[0].toUpperCase() + specialNames[mediaType].creators.slice(1,-1)}
+            </th>
             <th>Years</th>
           </tr>
         </thead>
         <tbody>
-        {entries.toDisplay.map((entry,i) => (
+        {entriesToDisplay.map((entry,i) => (
           <tr key={'item' + i}>
             <td>{entry.rank}</td>
             <td><a onClick={() => {
               setSelectedCreator(entry.name);
               setEntryType('works');
+              setNewFilters(true);
               }}>{entry.name}</a></td>
             <td>{displayYearRange(entry.year, entry.endYear)}</td>
           </tr>
@@ -77,7 +86,7 @@ export const Display = ({ entries, categories, displaySettings, utilities }) => 
         display: 'flex',
         flexWrap: 'wrap',
       }}>
-      {entries.toDisplay.map((entry,i) => {
+      {entriesToDisplay.map((entry,i) => {
         const renderWork = (
           <div>
             <p>{entry.title}</p>
@@ -87,6 +96,7 @@ export const Display = ({ entries, categories, displaySettings, utilities }) => 
                   setSavedSettings({ mediaType, list, entryType, dateRange, view });
                   setDateRange(dateRangeDefault);
                   setSelectedCreator(entry.creator);
+                  setNewFilters(true);
                 }}>
                 <a>{entry.creator}</a>
               </span>
@@ -100,6 +110,7 @@ export const Display = ({ entries, categories, displaySettings, utilities }) => 
               setDateRange(dateRangeDefault);
               setSelectedCreator(entry.name);
               setEntryType('works');
+              setNewFilters(true);
             }}>
               <a>{entry.name}</a>
             </p>
@@ -139,11 +150,11 @@ export const Display = ({ entries, categories, displaySettings, utilities }) => 
   )
   return (
     <section className='section pt-0'>
-      {(entries.filtered.length > 0)
+      {(entriesToDisplay.length > 0)
         ? (
           <>
             {entriesDisplay}
-            {entries.filtered.length > displayLimit ? loadMoreButton : <></>}
+            {entriesFiltered.length > displayLimit ? loadMoreButton : <></>}
           </>
         )
         : <></>

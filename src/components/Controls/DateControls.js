@@ -1,20 +1,22 @@
-export const DateControls = ({ entries, categories, displaySettings, utilities }) => {
-    const { mediaType } = categories;
+export const DateControls = ({ data, categories, displaySettings, utilities }) => {
+    const { setNewFilters } = data.handlers;
+    const { mediaType, entryType } = categories;
     const { dateRange } = displaySettings;
     const { setDateRange } = displaySettings.handlers;
     const { dateRangeDefault } = utilities;
-    function isEmpty(start, end) {
-        if (entries.all.length === 0) {
+    const entries = data.entries[entryType];
+    const isEmpty = (start, end) => {
+        if (!entries) {
             return true;
         }
-        for (let entry of entries.all) {
+        for (let entry of entries) {
             if (entry.year >= start && entry.year <= end) {
                 return false;
             }
         }
         return true;
     }
-    function dateButtons(range) {
+    const dateButtons = range => {
         const contextStart = Math.floor(dateRange.start/(range * 10)) * range * 10;
         const contextRange = {
             start: contextStart,
@@ -37,12 +39,15 @@ export const DateControls = ({ entries, categories, displaySettings, utilities }
                 const isSelected = dateRange.start >= i && dateRange.end <= i + range;
                 const reset = range === 100
                     ? dateRangeDefault
-                    : {start: contextRange.start, end: contextRange.end};
+                    : { start: contextRange.start, end: contextRange.end  };
                 buttons.push(
                     <button
                         key={range + '-' + i}
                         className={isSelected ? 'button is-primary' : 'button'}
-                        onClick={() => setDateRange(isSelected ? reset : {start: i, end: i + range} )}
+                        onClick={() => {
+                            setDateRange(isSelected ? reset : {start: i, end: i + range});
+                            setNewFilters(true);
+                        }}
                     >
                         {range >= 10 ? i + 's' : i}
                     </button>)
@@ -57,9 +62,13 @@ export const DateControls = ({ entries, categories, displaySettings, utilities }
                 <button
                     key={'earlier'}
                     className={dateRange.end <= 1500 ? 'button is-primary' : 'button'}
-                    onClick={() => setDateRange(dateRange.end <= 1500
-                        ? dateRangeDefault
-                        : {start: dateRangeDefault.start, end: 1500} )}
+                    onClick={() => {
+                        const newDateRange = dateRange.end <= 1500
+                            ? dateRangeDefault
+                            : { start: dateRangeDefault.start, end: 1500 }
+                        setDateRange(newDateRange);
+                        setNewFilters(true);
+                    }}
                 >
                     Earlier
                 </button>

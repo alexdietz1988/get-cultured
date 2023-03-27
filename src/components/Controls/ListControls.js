@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-export const ListControls = ({ lists, mediaType, list, setList }) => {
+export const ListControls = ({ data, mediaType, list, setList }) => {
+    const { lists } = data;
+    const { setLoading } = data.handlers;
     const [dropdownToggle, setDropdownToggle] = useState('');
     return (
         <div className={'dropdown ' + dropdownToggle}>
@@ -25,7 +27,9 @@ export const ListControls = ({ lists, mediaType, list, setList }) => {
                                     : 'dropdown-item'}
                                 onClick={() => {
                                     setList(currentList);
-                                    setDropdownToggle('');}}>
+                                    setLoading(true);
+                                    setDropdownToggle('');
+                                    }}>
                                 {lists[mediaType][currentList].label}
                             </a>)
                             )
