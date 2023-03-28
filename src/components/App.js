@@ -66,11 +66,15 @@ const App = () => {
       default: 'greatestBooksFiction',
       greatestBooksFiction: {
         label: 'The Greatest Books: Fiction',
+        url: 'https://thegreatestbooks.org',
+        about: 'Part of a meta-list, generated from 130 best-of lists, by Shane Sherman.',
         startYear: -700,
         data: {},
       },
       greatestBooksNonfiction: {
         label: 'The Greatest Books: Nonfiction',
+        url: 'https://thegreatestbooks.org',
+        about: 'Part of a meta-list, generated from 130 best-of lists, by Shane Sherman.',
         startYear: -1400,
         data: {},
       },
@@ -79,6 +83,8 @@ const App = () => {
       default: 'rs500Albums',
       rs500Albums: {
         label: 'Rolling Stone: The 500 Greatest Albums of All Time',
+        about: <>A ranking by <em>Rolling Stone</em> magazine, last updated in 2020.</>,
+        url: 'https://www.rollingstone.com/music/music-lists/best-albums-of-all-time-1062063/',
         startYear: 1955,
         data: {},
       },
@@ -182,7 +188,7 @@ const App = () => {
         )
         : (
         <>
-          <section className='section'>
+          <section className='section pb-2'>
             <ListSelectors 
               data={data}
               categories={categories}

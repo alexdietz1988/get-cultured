@@ -150,6 +150,9 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
   )
   return (
     <section className='section pt-0'>
+      {entryType === 'creators' &&
+        <p className='is-size-7 ml-3'>Rank (e.g. "#1") is that of {specialNames[mediaType].creators.slice(0,-1)}'s highest ranked work.
+        Dates are those of the {specialNames[mediaType].creators.slice(0,-1)}'s {specialNames[mediaType].works} in the current list.</p>}
       {(entriesToDisplay.length > 0)
         ? (
           <>
