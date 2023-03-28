@@ -66,10 +66,12 @@ const App = () => {
       default: 'greatestBooksFiction',
       greatestBooksFiction: {
         label: 'The Greatest Books: Fiction',
+        startYear: -700,
         data: {},
       },
       greatestBooksNonfiction: {
         label: 'The Greatest Books: Nonfiction',
+        startYear: -1400,
         data: {},
       },
     },
@@ -77,6 +79,7 @@ const App = () => {
       default: 'rs500Albums',
       rs500Albums: {
         label: 'Rolling Stone: The 500 Greatest Albums of All Time',
+        startYear: 1955,
         data: {},
       },
     }
@@ -89,7 +92,7 @@ const App = () => {
   const [list, setList] = useState('greatestBooksFiction');
   const [entryType, setEntryType] = useState('works');
 
-  const dateRangeDefault = {start: -700, end: 2023};
+  const dateRangeDefault = {start: -700, end: new Date().getFullYear()};
   const [dateRange, setDateRange] = useState(dateRangeDefault);
 
   const [selectedCreator, setSelectedCreator] = useState('');

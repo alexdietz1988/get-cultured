@@ -18,9 +18,9 @@ export const ListControls = ({ data, mediaType, list, setList }) => {
                         <b className='mr-1'>List:</b>
                         <span>{lists[mediaType][list].label}</span>
                     </span>
-                    <icon>
+                    <i>
                         <FontAwesomeIcon icon={faChevronDown} />
-                    </icon>
+                    </i>
                 </button>
             </div>
             <div className='dropdown-menu' id='dropdown-menu' role='menu'>

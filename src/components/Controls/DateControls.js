@@ -1,10 +1,12 @@
 export const DateControls = ({ data, categories, displaySettings, utilities }) => {
+    const { lists } = data;
     const { setNewFilters } = data.handlers;
-    const { mediaType, entryType } = categories;
+    const { list, mediaType, entryType } = categories;
     const { dateRange } = displaySettings;
     const { setDateRange } = displaySettings.handlers;
     const { dateRangeDefault } = utilities;
     const entries = data.entries[entryType];
+    const shortTimePeriod = dateRangeDefault.end - lists[mediaType][list].startYear < 100;
     const isEmpty = (start, end) => {
         if (!entries) {
             return true;
@@ -17,6 +19,7 @@ export const DateControls = ({ data, categories, displaySettings, utilities }) =
         return true;
     }
     const dateButtons = range => {
+        const buttons = [];
         const contextStart = Math.floor(dateRange.start/(range * 10)) * range * 10;
         const contextRange = {
             start: contextStart,
@@ -26,14 +29,26 @@ export const DateControls = ({ data, categories, displaySettings, utilities }) =
             contextRange.start = dateRangeDefault.start;
             contextRange.end = dateRangeDefault.end;
         }
-        if (mediaType ==='literature' && range === 100) {
+        if (lists[mediaType][list].startYear < 1500 && range === 100) {
             contextRange.start = 1500;
+            buttons.push(
+                <button
+                key={'earlier'}
+                className={dateRange.end <= 1500 ? 'button is-primary' : 'button'}
+                onClick={() => {
+                    const newDateRange = dateRange.end <= 1500
+                        ? dateRangeDefault
+                        : { start: dateRangeDefault.start, end: 1500 }
+                    setDateRange(newDateRange);
+                    setNewFilters(true);
+                }}>
+                Earlier
+                </button>);
         }
-        if (mediaType === 'music' && range === 10) {
-            contextRange.start = 1900;
+        if (shortTimePeriod && range === 10) {
+            contextRange.start = Math.floor(lists[mediaType][list].startYear/10) * 10;
             contextRange.end = dateRangeDefault.end;
         }
-        const buttons = [];
         for (let i = contextRange.start; i < contextRange.end; i += range) {
             if (!isEmpty(i, i + range)) {
                 const isSelected = dateRange.start >= i && dateRange.end <= i + range;
@@ -57,30 +72,21 @@ export const DateControls = ({ data, categories, displaySettings, utilities }) =
     }
     return(
         <div>
-            {mediaType === 'literature' && (
-            <div className='buttons mb-0 has-addons'>
-                <button
-                    key={'earlier'}
-                    className={dateRange.end <= 1500 ? 'button is-primary' : 'button'}
-                    onClick={() => {
-                        const newDateRange = dateRange.end <= 1500
-                            ? dateRangeDefault
-                            : { start: dateRangeDefault.start, end: 1500 }
-                        setDateRange(newDateRange);
-                        setNewFilters(true);
-                    }}
-                >
-                    Earlier
-                </button>
-                {dateButtons(100)}
-            </div>
+            {!shortTimePeriod && (
+                <div className='buttons mb-0 has-addons'>
+                    {dateButtons(100)}
+                </div>
             )}
-            <div className='buttons mb-0 has-addons'>
-                {dateRange.end - dateRange.start <= 100 || mediaType === 'music' ? dateButtons(10) : <></>}
-            </div>
-            <div className='buttons mb-0 has-addons'>
-                {dateRange.end - dateRange.start <= 10 ? dateButtons(1) : <></>}
-            </div>
+            {(dateRange.end - dateRange.start <= 100 || shortTimePeriod) && (
+                <div className='buttons mb-0 has-addons'>
+                    {dateButtons(10)}
+                </div>
+            )}
+            {dateRange.end - dateRange.start <= 10 && (
+                <div className='buttons mb-0 has-addons'>
+                    {dateButtons(1)}
+                </div>
+            )}
         </div>
     )
 }
