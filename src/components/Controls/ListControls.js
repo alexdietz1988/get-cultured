@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
 export const ListControls = ({ data, mediaType, list, setList }) => {
     const { lists } = data;
@@ -12,8 +14,13 @@ export const ListControls = ({ data, mediaType, list, setList }) => {
                     aria-haspopup='true'
                     aria-controls='dropdown-menu'
                     onClick={() => setDropdownToggle(dropdownToggle === 'is-active' ? '' : 'is-active')}>
-                    <b className='mr-1'>List:</b>
-                    <span>{lists[mediaType][list].label}</span>
+                    <span className='mr-1'>
+                        <b className='mr-1'>List:</b>
+                        <span>{lists[mediaType][list].label}</span>
+                    </span>
+                    <icon>
+                        <FontAwesomeIcon icon={faChevronDown} />
+                    </icon>
                 </button>
             </div>
             <div className='dropdown-menu' id='dropdown-menu' role='menu'>
