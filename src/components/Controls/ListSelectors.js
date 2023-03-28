@@ -16,12 +16,8 @@ export const ListSelectors = ({ data, categories, displaySettings, utilities }) 
                     key={currentMediaType}
                     className={mediaType === currentMediaType ? 'button mb-0 is-primary' : 'button'}
                     onClick={() => {
-                        const defaultLists = {
-                            literature: 'greatestBooksFiction',
-                            music: 'rs500Albums'
-                        }
                         setMediaType(currentMediaType);
-                        setList(defaultLists[currentMediaType]);
+                        setList(lists[currentMediaType].default);
                         setSelectedCreator('');
                         setLoading(true);
                         }}>

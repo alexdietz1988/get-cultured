@@ -63,6 +63,7 @@ const App = () => {
 
   const [lists, setLists] = useState({
     literature: {
+      default: 'greatestBooksFiction',
       greatestBooksFiction: {
         label: 'The Greatest Books: Fiction',
         data: {},
@@ -73,6 +74,7 @@ const App = () => {
       },
     },
     music: {
+      default: 'rs500Albums',
       rs500Albums: {
         label: 'Rolling Stone: The 500 Greatest Albums of All Time',
         data: {},
