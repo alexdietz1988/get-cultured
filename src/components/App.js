@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { Display } from "./Display.js";
 import { Controls } from "./Controls/Controls.js";
 import { ListSelectors } from "./Controls/ListSelectors.js";
+import { DateControls } from "./Controls/DateControls.js";
+import { SelectionControls } from "./Controls/SelectionControls.js";
 
 import { greatestBooksFiction } from '../data/greatestBooksFiction';
 import { greatestBooksNonfiction } from '../data/greatestBooksNonfiction';
@@ -215,16 +217,32 @@ const App = () => {
           <section className='section pb-2'>
             <ListSelectors 
               data={data}
-              list={list}
               categories={categories}
               displaySettings={displaySettings}
             />
             <Controls
               data={data}
+              list={list}
               categories={categories}
               displaySettings={displaySettings}
               utilities={utilities}
             />
+            <div className='mt-4 mb-3'>
+                <DateControls
+                    data={data}
+                    categories={categories}
+                    displaySettings={displaySettings}
+                    utilities={utilities}
+                />
+            </div>
+            <div className='my-3'>
+                <SelectionControls
+                    data={data}
+                    categories={categories}
+                    displaySettings={displaySettings}
+                    utilities={utilities} 
+                />
+            </div>
           </section>
           <Display
             data={data}

@@ -21,36 +21,34 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
       <thead>
         <tr>
           <th>Rank</th>
-          <th style={{width: '250px'}}>
-            {creatorName[0].toUpperCase() + creatorName.slice(1, -1)}
-          </th>
           <th style={{width: '250px'}}>Title</th>
+          {!currentList.noCreators && <th style={{width: '250px'}}>
+            {creatorName[0].toUpperCase() + creatorName.slice(1, -1)}
+          </th>}
           <th>Year</th>
         </tr>
       </thead>
       <tbody>
-      {entriesToDisplay.map((entry,i) => 
-          <tr key={'item' + i}>
+      {entriesToDisplay.map((entry,i) => {
+        const renderCreator = entry.creator === 'No Creator Listed'
+          ? <td>No Creator Listed</td>
+          : <td onClick={() => {
+            setSelectedCreator(entry.creator);
+            setDateRange(dateRangeDefault);
+            setNewFilters(true);
+            }}><a>{entry.creator}</a>
+          </td>
+        
+        return (<tr key={'item' + i}>
             <td>{entry.rank}</td>
-            {entry.creator === 'No Creator Listed' 
-              ? <td>No Creator Listed</td>
-              : (
-                <td onClick={() => {
-                  setSelectedCreator(entry.creator);
-                  setDateRange(dateRangeDefault);
-                  setNewFilters(true);
-                  }}><a>{entry.creator}</a>
-                </td>
-                )
-              }
-            
             <td><em>{entry.title}</em></td>
+            {!currentList.noCreators && renderCreator}
             <td onClick={() => {
               setSelectedCreator('');
               setDateRange({start: entry.year, end: entry.year + 1});
               setNewFilters(true);
             }}><a>{displayYear(entry.year)}</a></td>
-          </tr>
+          </tr>)}
       )}
       </tbody>
       </>

@@ -1,12 +1,11 @@
 import { ListControls } from './ListControls'
 
-export const ListSelectors = ({ data, list, categories, displaySettings }) => {
+export const ListSelectors = ({ data, categories, displaySettings }) => {
     const { lists } = data;
-    const { setLoading, setNewFilters } = data.handlers;
-    const { mediaType, entryType } = categories;
-    const { setMediaType, setEntryType, setList } = categories.handlers;
+    const { setLoading } = data.handlers;
+    const { mediaType } = categories;
+    const { setMediaType, setList } = categories.handlers;
     const { setSelectedCreator } = displaySettings.handlers;
-    const currentList = lists[mediaType].lists[list];
     return (
         <>
             <div className='mt-2'>
@@ -25,20 +24,6 @@ export const ListSelectors = ({ data, list, categories, displaySettings }) => {
                     </button>
                 ))}
                 </div>
-                <div className='is-inline mx-2 mb-0 buttons has-addons'>
-                {!currentList.noCreators && ['works', 'creators'].map(currentEntryType => 
-                    <button
-                        key={currentEntryType}
-                        className={entryType === currentEntryType ? 'button is-primary' : 'button'}
-                        onClick={() => {
-                            setEntryType(currentEntryType);
-                            setNewFilters(true);
-                            }}>
-                    {lists[mediaType].specialNames[currentEntryType][0].toUpperCase() + 
-                        lists[mediaType].specialNames[currentEntryType].slice(1)}
-                </button>
-                )}
-            </div>
                 
             </div>
             <div className='my-3'>

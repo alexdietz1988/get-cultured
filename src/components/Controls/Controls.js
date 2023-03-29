@@ -1,21 +1,35 @@
-import { DateControls } from "./DateControls"
 import { SelectionControls } from "./SelectionControls";
 
-export const Controls = ({ data, categories, displaySettings, utilities }) => {
+export const Controls = ({ data, list, categories, displaySettings, utilities }) => {
+    const { lists } = data;
+    const { setNewFilters } = data.handlers;
+    const { entryType, mediaType } = categories;
+    const { setEntryType } = categories.handlers;
     const { view } = displaySettings;
     const { setView, setDisplayLimit } = displaySettings.handlers;
+    const currentList = lists[mediaType].lists[list];
     return (
         <>
-            <div className='mt-4 mb-3'>
-                <DateControls
-                    data={data}
-                    categories={categories}
-                    displaySettings={displaySettings}
-                    utilities={utilities}
-                />
-            </div>
             <div className='my-3'>
-                <div className='buttons has-addons'>
+                
+                {!currentList.noCreators &&
+                <div className='is-inline mr-4 mb-0 buttons has-addons'>
+                {['works', 'creators'].map(currentEntryType => 
+                    <button
+                        key={currentEntryType}
+                        className={entryType === currentEntryType ? 'button is-primary' : 'button'}
+                        onClick={() => {
+                            setEntryType(currentEntryType);
+                            setNewFilters(true);
+                            }}>
+                    {lists[mediaType].specialNames[currentEntryType][0].toUpperCase() + 
+                        lists[mediaType].specialNames[currentEntryType].slice(1)}
+                </button>
+                )}
+                </div>
+                }
+                
+                <div className='is-inline buttons has-addons'>
                 {['compact', 'table'].map(currentView => (
                     <button
                         key={currentView}
@@ -28,14 +42,6 @@ export const Controls = ({ data, categories, displaySettings, utilities }) => {
                     </button>
                 ))}
                 </div>
-            </div>
-            <div className='my-3'>
-                <SelectionControls
-                    data={data}
-                    categories={categories}
-                    displaySettings={displaySettings}
-                    utilities={utilities} 
-                />
             </div>
         </>
     )
