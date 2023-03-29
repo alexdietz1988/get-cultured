@@ -1,4 +1,4 @@
-export const SelectionControls = ({ data, categories, displaySettings, utilities }) => {
+export const Tags = ({ data, categories, displaySettings, utilities }) => {
     const { setNewFilters } = data.handlers;
     const { setMediaType, setEntryType, setList } = categories.handlers;
     const { dateRangeDefault, displayYear, savedSettings } = utilities;

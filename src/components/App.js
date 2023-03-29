@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 
-import { Display } from "./Display.js";
-import { Controls } from "./Controls/Controls.js";
-import { ListSelectors } from "./Controls/ListSelectors.js";
+import { MediaTypeControls } from "./Controls/MediaTypeControls.js";
+import { ListControls } from "./Controls/ListControls.js"
+import { ViewControls } from "./Controls/ViewControls.js";
 import { DateControls } from "./Controls/DateControls.js";
-import { SelectionControls } from "./Controls/SelectionControls.js";
+import { Tags } from "./Controls/Tags.js";
+
+import { Display } from "./Display.js";
 
 import { greatestBooksFiction } from '../data/greatestBooksFiction';
 import { greatestBooksNonfiction } from '../data/greatestBooksNonfiction';
@@ -215,18 +217,29 @@ const App = () => {
         : (
         <>
           <section className='section pb-2'>
-            <ListSelectors 
-              data={data}
-              categories={categories}
-              displaySettings={displaySettings}
-            />
-            <Controls
-              data={data}
-              list={list}
-              categories={categories}
-              displaySettings={displaySettings}
-              utilities={utilities}
-            />
+            <div className='mt-2'>
+              <MediaTypeControls
+                data={data}
+                categories={categories}
+                displaySettings={displaySettings}
+              />
+            </div>
+            <div className='my-3'>
+              <ListControls 
+                  data={data}
+                  mediaType={mediaType} 
+                  list={categories.list} 
+                  setList={setList} 
+              />
+            </div>
+            <div className='my-3'>
+              <ViewControls
+                data={data}
+                list={list}
+                categories={categories}
+                displaySettings={displaySettings}
+              />
+            </div>
             <div className='mt-4 mb-3'>
                 <DateControls
                     data={data}
@@ -236,7 +249,7 @@ const App = () => {
                 />
             </div>
             <div className='my-3'>
-                <SelectionControls
+                <Tags
                     data={data}
                     categories={categories}
                     displaySettings={displaySettings}
