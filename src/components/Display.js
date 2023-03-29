@@ -7,6 +7,7 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
   const { setDateRange, setDisplayLimit, setSelectedCreator } = displaySettings.handlers;
   const { dateRangeDefault, displayYear } = utilities;
   const { setSavedSettings } = utilities.handlers;
+  const currentList = lists[mediaType].lists[list]
   const creatorName = lists[mediaType].specialNames.creators;
   const workName = lists[mediaType].specialNames.works;
   const displayYearRange = (year, endYear) => {
@@ -31,11 +32,18 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
       {entriesToDisplay.map((entry,i) => 
           <tr key={'item' + i}>
             <td>{entry.rank}</td>
-            <td onClick={() => {
-              setSelectedCreator(entry.creator);
-              setDateRange(dateRangeDefault);
-              setNewFilters(true);
-              }}><a>{entry.creator}</a></td>
+            {entry.creator === 'No Creator Listed' 
+              ? <td>No Creator Listed</td>
+              : (
+                <td onClick={() => {
+                  setSelectedCreator(entry.creator);
+                  setDateRange(dateRangeDefault);
+                  setNewFilters(true);
+                  }}><a>{entry.creator}</a>
+                </td>
+                )
+              }
+            
             <td><em>{entry.title}</em></td>
             <td onClick={() => {
               setSelectedCreator('');
@@ -81,7 +89,7 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
       )
   }
   const compactView = () => {
-    const height = entryType === 'works' ? '125px' : '75px';
+    const height = entryType === 'creators' || currentList.noCreators ? '75px' : '125px';
     return (
     <section
       style={{
@@ -93,16 +101,18 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
           <div>
             <p>{entry.title}</p>
             <p className='has-text-weight-light'>
+              {entry.creator !== 'No Creator Listed' &&
               <span 
-                onClick={() => {
-                  setSavedSettings({ mediaType, list, entryType, dateRange, view });
-                  setDateRange(dateRangeDefault);
-                  setSelectedCreator(entry.creator);
-                  setNewFilters(true);
-                }}>
-                <a>{entry.creator}</a>
+              onClick={() => {
+                setSavedSettings({ mediaType, list, entryType, dateRange, view });
+                setDateRange(dateRangeDefault);
+                setSelectedCreator(entry.creator);
+                setNewFilters(true);
+              }}>
+              <a>{entry.creator}</a>
+              <br />
               </span>
-            <br />
+              }
               #{entry.rank}, {displayYear(entry.year)}
             </p>
           </div>)

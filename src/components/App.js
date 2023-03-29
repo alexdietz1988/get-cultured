@@ -106,6 +106,7 @@ const App = () => {
           about: <>A ranking by <em>Rolling Stone</em> magazine, last updated in 2022.</>,
           url: 'https://www.rollingstone.com/tv-movies/tv-movie-lists/best-tv-shows-of-all-time-1234598313/',
           startYear: 1951,
+          noCreators: true,
           data: { works: [], creators: [] },
         }
       }
@@ -214,6 +215,7 @@ const App = () => {
           <section className='section pb-2'>
             <ListSelectors 
               data={data}
+              list={list}
               categories={categories}
               displaySettings={displaySettings}
             />
