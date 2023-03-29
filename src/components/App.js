@@ -6,7 +6,8 @@ import { ListSelectors } from "./Controls/ListSelectors.js";
 
 import { greatestBooksFiction } from '../data/greatestBooksFiction';
 import { greatestBooksNonfiction } from '../data/greatestBooksNonfiction';
-import { rs500Albums } from '../data/rs500Albums';
+import { rsAlbums } from '../data/rsAlbums';
+import { rsTV } from '../data/rsTV';
 
 import { parse } from '@vanillaes/csv';
 
@@ -14,7 +15,8 @@ const processList = list => {
     const originalData = {
         greatestBooksFiction,
         greatestBooksNonfiction,
-        rs500Albums,
+        rsAlbums,
+        rsTV
     }
     const worksUnprocessed = parse(originalData[list]);
     const works = [];
@@ -64,32 +66,52 @@ const App = () => {
   const [lists, setLists] = useState({
     literature: {
       default: 'greatestBooksFiction',
-      greatestBooksFiction: {
-        label: 'The Greatest Books: Fiction',
-        url: 'https://thegreatestbooks.org',
-        about: 'Part of a meta-list, generated from 130 best-of lists, by Shane Sherman.',
-        startYear: -700,
-        data: {},
-      },
-      greatestBooksNonfiction: {
-        label: 'The Greatest Books: Nonfiction',
-        url: 'https://thegreatestbooks.org',
-        about: 'Part of a meta-list, generated from 130 best-of lists, by Shane Sherman.',
-        startYear: -1400,
-        data: {},
-      },
+      specialNames: { works: 'books', creators: 'authors'},
+      lists: {
+        greatestBooksFiction: {
+          label: 'The Greatest Books: Fiction',
+          url: 'https://thegreatestbooks.org',
+          about: 'Part of a meta-list, generated from 130 best-of lists, by Shane Sherman.',
+          startYear: -700,
+          data: { works: [], creators: [] },
+        },
+        greatestBooksNonfiction: {
+          label: 'The Greatest Books: Nonfiction',
+          url: 'https://thegreatestbooks.org',
+          about: 'Part of a meta-list, generated from 130 best-of lists, by Shane Sherman.',
+          startYear: -1400,
+          data: { works: [], creators: [] },
+        },
+      }
     },
     music: {
-      default: 'rs500Albums',
-      rs500Albums: {
-        label: 'Rolling Stone: The 500 Greatest Albums of All Time',
-        about: <>A ranking by <em>Rolling Stone</em> magazine, last updated in 2020.</>,
-        url: 'https://www.rollingstone.com/music/music-lists/best-albums-of-all-time-1062063/',
-        startYear: 1955,
-        data: {},
-      },
+      default: 'rsAlbums',
+      specialNames: { works: 'albums', creators: 'artists'},
+      lists: {
+        rsAlbums: {
+          label: 'Rolling Stone: The 500 Greatest Albums of All Time',
+          about: <>A ranking by <em>Rolling Stone</em> magazine, last updated in 2020.</>,
+          url: 'https://www.rollingstone.com/music/music-lists/best-albums-of-all-time-1062063/',
+          startYear: 1955,
+          data: { works: [], creators: [] },
+        },
+      }
+    },
+    television: {
+      default: 'rsTV',
+      specialNames: { works: 'shows', creators: 'creators'},
+      lists: {
+        rsTV: {
+          label: 'Rolling Stone: The 100 Greatest TV Shows of All Time',
+          about: <>A ranking by <em>Rolling Stone</em> magazine, last updated in 2022.</>,
+          url: 'https://www.rollingstone.com/tv-movies/tv-movie-lists/best-tv-shows-of-all-time-1234598313/',
+          startYear: 1951,
+          data: { works: [], creators: [] },
+        }
+      }
     }
   });
+
   const [entries, setEntries] = useState([]);
   const [entriesFiltered, setEntriesFiltered] = useState([]);
   const [entriesToDisplay, setEntriesToDisplay] = useState([]);
@@ -134,17 +156,13 @@ const App = () => {
   }
   const utilities = {
     dateRangeDefault,
-    specialNames: {
-      literature: { works: 'books', creators: 'authors' },
-      music: { works: 'albums', creators: 'artists' },
-    },
     displayYear: year => year >= 0 ? year : Math.abs(year) + ' BC',
     savedSettings,
     handlers: { setSavedSettings },
   }
 
   const applyFilters = () => {
-    const allEntries = lists[mediaType][list].data[entryType];
+    const allEntries = lists[mediaType].lists[list].data[entryType];
     const filtered = [];
     for (let entry of allEntries) {
       const inDateRange = entry.year >= dateRange.start && entry.year < dateRange.end;
@@ -159,11 +177,16 @@ const App = () => {
 
   useEffect(() => {
       if (loading) {
-        const newLists = lists;
-        const newEntries = processList(list);
-        newLists[mediaType][list].data = newEntries;
-        setLists(newLists);
-        setEntries(newEntries);
+        const currentEntries = lists[mediaType].lists[list].data;
+        if (currentEntries.works.length === 0) {
+          const newLists = lists;
+          const newEntries = processList(list);
+          newLists[mediaType].lists[list].data = newEntries;
+          setLists(newLists);
+          setEntries(newEntries);
+        } else {
+          setEntries(currentEntries);
+        }
         applyFilters();
         setLoading(false);
       } else if (newFilters) {
@@ -193,7 +216,6 @@ const App = () => {
               data={data}
               categories={categories}
               displaySettings={displaySettings}
-              utilities={utilities}
             />
             <Controls
               data={data}

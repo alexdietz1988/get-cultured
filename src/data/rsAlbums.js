@@ -1,4 +1,4 @@
-export const rs500Albums = `
+export const rsAlbums = `
 1,Sgt. Pepper's Lonely Hearts Club Band,The Beatles,1967
 2,Pet Sounds,The Beach Boys,1966
 3,Revolver,The Beatles,1966

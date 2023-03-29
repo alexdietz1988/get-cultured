@@ -6,7 +6,8 @@ export const DateControls = ({ data, categories, displaySettings, utilities }) =
     const { setDateRange } = displaySettings.handlers;
     const { dateRangeDefault } = utilities;
     const entries = data.entries[entryType];
-    const shortTimePeriod = dateRangeDefault.end - lists[mediaType][list].startYear < 100;
+    const currentList = lists[mediaType].lists[list]
+    const shortTimePeriod = dateRangeDefault.end - currentList.startYear < 100;
     const isEmpty = (start, end) => {
         if (!entries) {
             return true;
@@ -29,7 +30,7 @@ export const DateControls = ({ data, categories, displaySettings, utilities }) =
             contextRange.start = dateRangeDefault.start;
             contextRange.end = dateRangeDefault.end;
         }
-        if (lists[mediaType][list].startYear < 1500 && range === 100) {
+        if (currentList.startYear < 1500 && range === 100) {
             contextRange.start = 1500;
             buttons.push(
                 <button
@@ -46,7 +47,7 @@ export const DateControls = ({ data, categories, displaySettings, utilities }) =
                 </button>);
         }
         if (shortTimePeriod && range === 10) {
-            contextRange.start = Math.floor(lists[mediaType][list].startYear/10) * 10;
+            contextRange.start = Math.floor(currentList.startYear/10) * 10;
             contextRange.end = dateRangeDefault.end;
         }
         for (let i = contextRange.start; i < contextRange.end; i += range) {

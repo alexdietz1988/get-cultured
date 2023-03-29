@@ -1,12 +1,14 @@
 export const Display = ({ data, categories, displaySettings, utilities }) => {
-  const { entriesFiltered, entriesToDisplay } = data;
+  const { lists, entriesFiltered, entriesToDisplay } = data;
   const { setNewFilters } = data.handlers;
   const { mediaType, entryType, list } = categories;
   const { setEntryType } = categories.handlers;
   const { dateRange, view, displayLimit } = displaySettings;
   const { setDateRange, setDisplayLimit, setSelectedCreator } = displaySettings.handlers;
-  const { dateRangeDefault, displayYear, specialNames } = utilities;
+  const { dateRangeDefault, displayYear } = utilities;
   const { setSavedSettings } = utilities.handlers;
+  const creatorName = lists[mediaType].specialNames.creators;
+  const workName = lists[mediaType].specialNames.works;
   const displayYearRange = (year, endYear) => {
     return year === endYear
       ? displayYear(year)
@@ -19,7 +21,7 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
         <tr>
           <th>Rank</th>
           <th style={{width: '250px'}}>
-            {specialNames[mediaType].creators[0].toUpperCase() + specialNames[mediaType].creators.slice(1,-1)}
+            {creatorName[0].toUpperCase() + creatorName.slice(1, -1)}
           </th>
           <th style={{width: '250px'}}>Title</th>
           <th>Year</th>
@@ -51,7 +53,7 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
           <tr>
             <th>Rank</th>
             <th>
-              {specialNames[mediaType].creators[0].toUpperCase() + specialNames[mediaType].creators.slice(1,-1)}
+              {creatorName[0].toUpperCase() + creatorName.slice(1, -1)}
             </th>
             <th>Years</th>
           </tr>
@@ -151,8 +153,8 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
   return (
     <section className='section pt-0'>
       {entryType === 'creators' &&
-        <p className='is-size-7 ml-3'>Rank (e.g. "#1") is that of {specialNames[mediaType].creators.slice(0,-1)}'s highest ranked work.
-        Dates are those of the {specialNames[mediaType].creators.slice(0,-1)}'s {specialNames[mediaType].works} in the current list.</p>}
+        <p className='is-size-7 ml-3'>Rank (e.g. "#1") is that of {creatorName.slice(0,-1)}'s highest ranked work.
+        Dates are those of the {creatorName.slice(0,-1)}'s {workName} in the current list.</p>}
       {(entriesToDisplay.length > 0)
         ? (
           <>
