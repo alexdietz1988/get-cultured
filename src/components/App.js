@@ -12,6 +12,7 @@ import { greatestBooksFiction } from '../data/greatestBooksFiction';
 import { greatestBooksNonfiction } from '../data/greatestBooksNonfiction';
 import { rsAlbums } from '../data/rsAlbums';
 import { rsTV } from '../data/rsTV';
+import { ssCritics } from '../data/ssCritics';
 
 import { parse } from '@vanillaes/csv';
 
@@ -20,11 +21,12 @@ const processList = list => {
         greatestBooksFiction,
         greatestBooksNonfiction,
         rsAlbums,
-        rsTV
+        rsTV,
+        ssCritics,
     }
     const worksUnprocessed = parse(originalData[list]);
     const works = [];
-    for (let i = 1; i < worksUnprocessed.length; i++) {
+    for (let i = 2; i < worksUnprocessed.length; i++) {
         works.push({
             rank: parseInt(worksUnprocessed[i][0]),
             title: worksUnprocessed[i][1].trim(),
@@ -66,6 +68,7 @@ const processList = list => {
 const App = () => {
   const [loading, setLoading] = useState(true);
   const [newFilters, setNewFilters] = useState(false);
+  const defaultData = { works: [], creators: [] };
 
   const [lists, setLists] = useState({
     literature: {
@@ -77,14 +80,14 @@ const App = () => {
           url: 'https://thegreatestbooks.org',
           about: 'Part of a meta-list, generated from 130 best-of lists, by Shane Sherman.',
           startYear: -700,
-          data: { works: [], creators: [] },
+          data: defaultData,
         },
         greatestBooksNonfiction: {
           label: 'The Greatest Books: Nonfiction',
           url: 'https://thegreatestbooks.org',
           about: 'Part of a meta-list, generated from 130 best-of lists, by Shane Sherman.',
           startYear: -1400,
-          data: { works: [], creators: [] },
+          data: defaultData,
         },
       }
     },
@@ -97,7 +100,20 @@ const App = () => {
           about: <>A ranking by <em>Rolling Stone</em> magazine, last updated in 2020.</>,
           url: 'https://www.rollingstone.com/music/music-lists/best-albums-of-all-time-1062063/',
           startYear: 1955,
-          data: { works: [], creators: [] },
+          data: defaultData,
+        },
+      }
+    },
+    film: {
+      default: 'ssCritics',
+      specialNames: { works: 'movies', creators: 'directors'},
+      lists: {
+        ssCritics: {
+          label: 'Sight and Sound - Critics (2022)',
+          about: <>The latest edition of <em>Sight and Sound</em> magazine's decennial ranking, based on a poll of 1,639 critics, programmers, curators, archivists and academics.</>,
+          url: 'https://www.bfi.org.uk/sight-and-sound/greatest-films-all-time',
+          startYear: 1924,
+          data: defaultData,
         },
       }
     },

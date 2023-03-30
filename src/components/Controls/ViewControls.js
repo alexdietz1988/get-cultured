@@ -33,7 +33,7 @@ export const ViewControls = ({ data, list, categories, displaySettings }) => {
                         setView(currentView);
                         setDisplayLimit(currentView === 'compact' ? 50 : 25);
                         }}>
-                {currentView[0].toUpperCase() + currentView.slice(1)} View
+                {currentView[0].toUpperCase() + currentView.slice(1)}
                 </button>
             ))}
             </div>

@@ -1,4 +1,5 @@
 export const rsAlbums = `
+rank,title,creator,year
 1,Sgt. Pepper's Lonely Hearts Club Band,The Beatles,1967
 2,Pet Sounds,The Beach Boys,1966
 3,Revolver,The Beatles,1966

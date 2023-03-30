@@ -1,0 +1,267 @@
+export const ssCritics = `
+Position,Name,Directors,Year,URL,
+1,"Jeanne Dielman, 23, quai du Commerce, 1080 Bruxelles",Chantal Akerman,1975,https://boxd.it/T18,
+2,Vertigo,Alfred Hitchcock,1958,https://boxd.it/2apI,
+3,Citizen Kane,Orson Welles,1941,https://boxd.it/71O,
+4,Tokyo Story,Yasujirō Ozu,1953,https://boxd.it/1HuY,
+5,In the Mood for Love,Wong Kar-wai,2000,https://boxd.it/29tE,
+6,2001: A Space Odyssey,Stanley Kubrick,1968,https://boxd.it/2bf0,
+7,Beau Travail,Claire Denis,1999,https://boxd.it/1NI8,
+8,Mulholland Drive,David Lynch,2001,https://boxd.it/297o,
+9,Man with a Movie Camera,Dziga Vertov,1929,https://boxd.it/1u7s,
+10,Singin' in the Rain,"Stanley Donen, Gene Kelly",1952,https://boxd.it/29oY,
+11,Sunrise: A Song of Two Humans,F.W. Murnau,1927,https://boxd.it/29Xk,
+12,The Godfather,Francis Ford Coppola,1972,https://boxd.it/2aNK,
+13,The Rules of the Game,Jean Renoir,1939,https://boxd.it/29Es,
+14,Cléo from 5 to 7,Agnès Varda,1962,https://boxd.it/2agm,
+15,The Searchers,John Ford,1956,https://boxd.it/25HC,
+16,Meshes of the Afternoon,"Maya Deren, Alexander Hammid",1943,https://boxd.it/1sEE,
+17,Close-Up,Abbas Kiarostami,1990,https://boxd.it/1m9q,
+18,Persona,Ingmar Bergman,1966,https://boxd.it/29B4,
+19,Apocalypse Now,Francis Ford Coppola,1979,https://boxd.it/6ZS,
+20,Seven Samurai,Akira Kurosawa,1954,https://boxd.it/2axi,
+21,The Passion of Joan of Arc,Carl Theodor Dreyer,1928,https://boxd.it/29DO,
+22,Late Spring,Yasujirō Ozu,1949,https://boxd.it/1DkK,
+23,PlayTime,Jacques Tati,1967,https://boxd.it/1WLK,
+24,Do the Right Thing,Spike Lee,1989,https://boxd.it/29gA,
+25,Au Hasard Balthazar,Robert Bresson,1966,https://boxd.it/1E3g,
+26,The Night of the Hunter,Charles Laughton,1955,https://boxd.it/25HW,
+27,Shoah,Claude Lanzmann,1985,https://boxd.it/XSK,
+28,Daisies,Věra Chytilová,1966,https://boxd.it/LZk,
+29,Taxi Driver,Martin Scorsese,1976,https://boxd.it/2b8y,
+30,Portrait of a Lady on Fire,Céline Sciamma,2019,https://boxd.it/jkPq,
+31,Mirror,Andrei Tarkovsky,1975,https://boxd.it/28Q8,
+32,8½,Federico Fellini,1963,https://boxd.it/2aqm,
+33,Psycho,Alfred Hitchcock,1960,https://boxd.it/2ab2,
+34,L'Atalante,Jean Vigo,1934,https://boxd.it/ThU,
+35,Pather Panchali,Satyajit Ray,1955,https://boxd.it/22yC,
+36,City Lights,Charlie Chaplin,1931,https://boxd.it/29ki,
+37,M,Fritz Lang,1931,https://boxd.it/29vq,
+38,Breathless,Jean-Luc Godard,1960,https://boxd.it/2aIK,
+39,Some Like It Hot,Billy Wilder,1959,https://boxd.it/2aNA,
+40,Rear Window,Alfred Hitchcock,1954,https://boxd.it/2a6Q,
+41,Bicycle Thieves,Vittorio De Sica,1948,https://boxd.it/23hW,
+42,Rashomon,Akira Kurosawa,1950,https://boxd.it/2a9K,
+43,Stalker,Andrei Tarkovsky,1979,https://boxd.it/28PO,
+44,Killer of Sheep,Charles Burnett,1978,https://boxd.it/1rPc,
+45,North by Northwest,Alfred Hitchcock,1959,https://boxd.it/2aRM,
+46,The Battle of Algiers,Gillo Pontecorvo,1966,https://boxd.it/1IRY,
+47,Barry Lyndon,Stanley Kubrick,1975,https://boxd.it/25A2,
+48,Wanda,Barbara Loden,1970,https://boxd.it/2OjK,
+49,Ordet,Carl Theodor Dreyer,1955,https://boxd.it/Jiy,
+50,The 400 Blows,François Truffaut,1959,https://boxd.it/2b1C,
+51,The Piano,Jane Campion,1993,https://boxd.it/29Kq,
+52,News from Home,Chantal Akerman,1976,https://boxd.it/34TO,
+53,Ali: Fear Eats the Soul,Rainer Werner Fassbinder,1974,https://boxd.it/2aRi,
+54,The Apartment,Billy Wilder,1960,https://boxd.it/2aGE,
+55,Battleship Potemkin,Sergei Eisenstein,1925,https://boxd.it/29Vo,
+56,"Sherlock, Jr.",Buster Keaton,1924,https://boxd.it/298m,
+57,Contempt,Jean-Luc Godard,1963,https://boxd.it/2aJe,
+58,Blade Runner,Ridley Scott,1982,https://boxd.it/2bcA,
+59,Sans Soleil,Chris Marker,1983,https://boxd.it/28B8,
+60,Daughters of the Dust,Julie Dash,1991,https://boxd.it/2dkw,
+61,La Dolce Vita,Federico Fellini,1960,https://boxd.it/2anC,
+62,Moonlight,Barry Jenkins,2016,https://boxd.it/d6bE,
+63,Casablanca,Michael Curtiz,1942,https://boxd.it/2aG0,
+64,GoodFellas,Martin Scorsese,1990,https://boxd.it/29FA,
+65,The Third Man,Carol Reed,1949,https://boxd.it/294E,
+66,Touki Bouki,Djibril Diop Mambéty,1973,https://boxd.it/2H44,
+67,The Gleaners and I,Agnès Varda,2000,https://boxd.it/S6c,
+68,Metropolis,Fritz Lang,1927,https://boxd.it/71a,
+69,Andrei Rublev,Andrei Tarkovsky,1966,https://boxd.it/29lg,
+70,The Red Shoes,"Michael Powell, Emeric Pressburger",1948,https://boxd.it/1EXI,
+71,La Jetée,Chris Marker,1962,https://boxd.it/29Sk,
+72,My Neighbor Totoro,Hayao Miyazaki,1988,https://boxd.it/20eA,
+73,Journey to Italy,Roberto Rossellini,1954,https://boxd.it/26o2,
+74,L'Avventura,Michelangelo Antonioni,1960,https://boxd.it/23hs,
+75,Imitation of Life,Douglas Sirk,1959,https://boxd.it/1efK,
+76,Sansho the Bailiff,Kenji Mizoguchi,1954,https://boxd.it/1Dkq,
+77,Spirited Away,Hayao Miyazaki,2001,https://boxd.it/2b4m,
+78,A Brighter Summer Day,Edward Yang,1991,https://boxd.it/1Luy,
+79,Satantango,Béla Tarr,1994,https://boxd.it/1j9M,
+80,Céline and Julie Go Boating,Jacques Rivette,1974,https://boxd.it/1sGA,
+81,Modern Times,Charlie Chaplin,1936,https://boxd.it/25MC,
+82,Sunset Boulevard,Billy Wilder,1950,https://boxd.it/2a20,
+83,A Matter of Life and Death,"Michael Powell, Emeric Pressburger",1946,https://boxd.it/1q6K,
+84,Blue Velvet,David Lynch,1986,https://boxd.it/29BI,
+85,Pierrot le Fou,Jean-Luc Godard,1965,https://boxd.it/26j2,
+86,Histoire(s) du cinéma,Jean-Luc Godard,1998,https://boxd.it/fNBO,
+87,The Spirit of the Beehive,Víctor Erice,1973,https://boxd.it/24eY,
+88,The Shining,Stanley Kubrick,1980,https://boxd.it/29Nu,
+89,Chungking Express,Wong Kar-wai,1994,https://boxd.it/1UDa,
+90,The Earrings of Madame de...,Max Ophüls,1953,https://boxd.it/2lom,
+91,The Leopard,Luchino Visconti,1963,https://boxd.it/296K,
+92,Ugetsu,Kenji Mizoguchi,1953,https://boxd.it/1NyM,
+93,Parasite,Bong Joon-ho,2019,https://boxd.it/hTha,
+94,Yi Yi,Edward Yang,2000,https://boxd.it/1vCw,
+95,A Man Escaped,Robert Bresson,1956,https://boxd.it/1MzY,
+96,The General,Buster Keaton,1926,https://boxd.it/29co,
+97,Once Upon a Time in the West,Sergio Leone,1968,https://boxd.it/2az4,
+98,Get Out,Jordan Peele,2017,https://boxd.it/eOCm,
+99,Black Girl,Ousmane Sembène,1966,https://boxd.it/3jIQ,
+100,Tropical Malady,Apichatpong Weerasethakul,2004,https://boxd.it/1TCA,
+101,Vagabond,Agnès Varda,1985,https://boxd.it/T0u,
+102,The House Is Black,Forough Farrokhzad,1963,https://boxd.it/STe,
+103,Rio Bravo,Howard Hawks,1959,https://boxd.it/2aE4,
+104,Come and See,Elem Klimov,1985,https://boxd.it/1w9q,
+105,The Godfather: Part II,Francis Ford Coppola,1974,https://boxd.it/2aNq,
+106,The Mother and the Whore,Jean Eustache,1973,https://boxd.it/HQe,
+107,Jaws,Steven Spielberg,1975,https://boxd.it/2a5e,
+108,Wild Strawberries,Ingmar Bergman,1957,https://boxd.it/29ZU,
+109,Bringing Up Baby,Howard Hawks,1938,https://boxd.it/29ks,
+110,The Man Who Shot Liberty Valance,John Ford,1962,https://boxd.it/1Tdg,
+111,The Wizard of Oz,Victor Fleming,1939,https://boxd.it/29Xu,
+112,"Goodbye, Dragon Inn",Tsai Ming-liang,2003,https://boxd.it/oFG,
+113,Touch of Evil,Orson Welles,1958,https://boxd.it/28II,
+114,Don't Look Now,Nicolas Roeg,1973,https://boxd.it/29fC,
+115,To Be or Not to Be,Ernst Lubitsch,1942,https://boxd.it/2aTy,
+116,A Woman Under the Influence,John Cassavetes,1974,https://boxd.it/1myg,
+117,Nashville,Robert Altman,1975,https://boxd.it/25GE,
+118,The Thing,John Carpenter,1982,https://boxd.it/294O,
+119,"Aguirre, the Wrath of God",Werner Herzog,1972,https://boxd.it/27Fe,
+120,The Texas Chain Saw Massacre,Tobe Hooper,1974,https://boxd.it/1lcS,
+121,The Conformist,Bernardo Bertolucci,1970,https://boxd.it/20cE,
+122,Only Angels Have Wings,Howard Hawks,1939,https://boxd.it/Ttw,
+123,The Matrix,Lana and Lilly Wachowski,1999,https://boxd.it/2a1m,
+124,There Will Be Blood,Paul Thomas Anderson,2007,https://boxd.it/20Z2,
+125,Johnny Guitar,Nicholas Ray,1954,https://boxd.it/1tyW,
+126,The Color of Pomegranates,Sergei Parajanov,1969,https://boxd.it/1u94,The Color of Pomegranates
+127,The Umbrellas of Cherbourg,Jacques Demy,1964,https://boxd.it/22fK,The Umbrellas of Cherbourg
+128,The Ascent,Larisa Shepitko,1977,https://boxd.it/Eew,The Ascent
+129,His Girl Friday,Howard Hawks,1940,https://boxd.it/25M8,His Girl Friday
+130,Pulp Fiction,Quentin Tarantino,1994,https://boxd.it/29Pq,Pulp Fiction
+131,Raging Bull,Martin Scorsese,1980,https://boxd.it/28yI,Raging Bull
+132,Fanny and Alexander,Ingmar Bergman,1982,https://boxd.it/22go,Fanny and Alexander
+133,Notorious,Alfred Hitchcock,1946,https://boxd.it/2aDK,Notorious
+134,Lawrence of Arabia,David Lean,1962,https://boxd.it/2wRE,Lawrence of Arabia
+135,It's a Wonderful Life,Frank Capra,1946,https://boxd.it/28xA,It's a Wonderful Life
+136,A Day in the Country,Jean Renoir,1946,https://boxd.it/Tm6,A Day in the Country
+137,Children of Paradise,Marcel Carné,1945,https://boxd.it/26H4,Children of Paradise
+138,Trouble in Paradise,Ernst Lubitsch,1932,https://boxd.it/2aU2,Trouble in Paradise
+139,The Wild Bunch,Sam Peckinpah,1969,https://boxd.it/2a5y,The Wild Bunch
+140,La Ciénaga,Lucrecia Martel,2001,https://boxd.it/kpk,La Ciénaga
+141,Gertrud,Carl Theodor Dreyer,1964,https://boxd.it/1ec2,Gertrud
+142,The Seventh Seal,Ingmar Bergman,1957,https://boxd.it/2ahO,The Seventh Seal
+143,Sambizanga,Sarah Maldoror,1972,https://boxd.it/35LQ,Sambizanga
+144,Pickpocket,Robert Bresson,1959,https://boxd.it/29O8,Pickpocket
+145,All That Heaven Allows,Douglas Sirk,1955,https://boxd.it/UNi,All That Heaven Allows
+146,Alien,Ridley Scott,1979,https://boxd.it/2awY,Alien
+147,The Watermelon Woman,Cheryl Dunye,1996,https://boxd.it/RRc,The Watermelon Woman
+148,Grand Illusion,Jean Renoir,1937,https://boxd.it/29Ei,Grand Illusion
+149,Vampyr,Carl Theodor Dreyer,1932,https://boxd.it/29DY,Vampyr
+150,India Song,Marguerite Duras,1975,https://boxd.it/32HQ,India Song
+151,Chinatown,Roman Polanski,1974,https://boxd.it/29vU,Chinatown
+152,Twin Peaks: The Return,David Lynch,2017,https://boxd.it/hN9O,Twin Peaks: The Return
+153,The Cloud-Capped Star,Ritwik Ghatak,1960,https://boxd.it/ix2,The Cloud-Capped Star
+154,Days of Heaven,Terrence Malick,1978,https://boxd.it/1JRg,Days of Heaven
+155,Le Bonheur,Agnès Varda,1965,https://boxd.it/xyk,Le Bonheur
+156,West Indies,Med Hondo,1979,https://boxd.it/8bHg,West Indies
+157,A City of Sadness,Hou Hsiao-hsien,1989,https://boxd.it/EIm,A City of Sadness
+158,The Gospel According to St. Matthew,Pier Paolo Pasolini,1964,https://boxd.it/1y7c,The Gospel According to St. Matthew
+159,All About My Mother,Pedro Almodóvar,1999,https://boxd.it/2b9c,All About My Mother
+160,Ikiru,Akira Kurosawa,1952,https://boxd.it/251c,Ikiru
+161,The Young and the Damned,Luis Buñuel,1950,https://boxd.it/29AA,The Young and the Damned
+162,Once Upon a Time in America,Sergio Leone,1984,https://boxd.it/2aCs,Once Upon a Time in America
+163,Out of the Past,Jacques Tourneur,1947,https://boxd.it/29PK,Out of the Past
+164,Where Is the Friend's House?,Abbas Kiarostami,1987,https://boxd.it/ELg,Where Is the Friend's House?
+165,Orlando,Sally Potter,1992,https://boxd.it/1Z1K,Orlando
+166,Vivre Sa Vie,Jean-Luc Godard,1962,https://boxd.it/28s6,Vivre Sa Vie
+167,Tie Xi Qu: West of the Tracks,Wang Bing,2002,https://boxd.it/33La,Tie Xi Qu: West of the Tracks
+168,Amarcord,Federico Fellini,1973,https://boxd.it/20NA,Amarcord
+169,The Exterminating Angel,Luis Buñuel,1962,https://boxd.it/1nRS,The Exterminating Angel
+170,Last Year at Marienbad,Alain Resnais,1961,https://boxd.it/24Qe,Last Year at Marienbad
+171,Out 1,Jacques Rivette,1971,https://boxd.it/3i2a,Out 1
+172,Un Chien Andalou,Luis Buñuel and Salvador Dalí,1929,https://boxd.it/29Y8,Un Chien Andalou
+173,Symbiopsychotaxiplasm: Take One,William Greaves,1968,https://boxd.it/R6q,Symbiopsychotaxiplasm: Take One
+174,Heat,Michael Mann,1995,https://boxd.it/2bg8,Heat
+175,Under the Skin,Jonathan Glazer,2013,https://boxd.it/3mDa,Under the Skin
+176,"The Good, the Bad and the Ugly",Sergio Leone,1966,https://boxd.it/2ape,
+177,Hiroshima Mon Amour,Alain Resnais,1959,https://boxd.it/22WY,
+178,The Magnificent Ambersons,Orson Welles,1942,https://boxd.it/29bK,
+179,L'Argent,Robert Bresson,1983,https://boxd.it/XIg,
+180,Black Narcissus,Michael Powell and Emeric Pressburger,1947,https://boxd.it/1Kce,
+181,Letter from an Unknown Woman,Max Ophüls,1948,https://boxd.it/2wRO,
+182,Memories of Underdevelopment,Tomás Gutiérrez Alea,1968,https://boxd.it/Kos,
+183,Red Desert,Michelangelo Antonioni,1964,https://boxd.it/1ttW,
+184,Charulata,Satyajit Ray,1964,https://boxd.it/1bVy,
+185,Pyaasa,Guru Dutt,1957,https://boxd.it/10iq,
+186,Magnolia,Paul Thomas Anderson,1999,https://boxd.it/2aze,
+187,Greed,Erich von Stroheim,1924,https://boxd.it/28Pa,
+188,Wings of Desire,Wim Wenders,1987,https://boxd.it/2b26,
+189,Ran,Akira Kurosawa,1985,https://boxd.it/1Tlu,
+190,The Birds,Alfred Hitchcock,1963,https://boxd.it/2a6m,
+191,An Autumn Afternoon,Yasujirō Ozu,1962,https://boxd.it/CUU,
+192,"Paris, Texas",Wim Wenders,1984,https://boxd.it/29Ts,
+193,The Young Girls of Rochefort,Jacques Demy,1967,https://boxd.it/26K8,
+194,The River,Jean Renoir,1951,https://boxd.it/Q3K,
+195,Love Streams,John Cassavetes,1984,https://boxd.it/zOk,
+196,Paisan,Roberto Rossellini,1946,https://boxd.it/20ay,
+197,The Headless Woman,Lucrecia Martel,2008,https://boxd.it/1ZDE,
+198,Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb,Stanley Kubrick,1964,https://boxd.it/29eY,
+199,L'Eclisse,Michelangelo Antonioni,1962,https://boxd.it/1CoG,
+200,Wavelength,Michael Snow,1967,https://boxd.it/37ZA,
+201,Uncle Boonmee Who Can Recall His Past Lives,Apichatpong Weerasethakul,2010,https://boxd.it/168Q,
+202,Nosferatu,F.W. Murnau,1922,https://boxd.it/29TM,
+203,I Know Where I'm Going!,Michael Powell and Emeric Pressburger,1945,https://boxd.it/pQU,
+204,Double Indemnity,Billy Wilder,1944,https://boxd.it/297I,
+205,The Life and Death of Colonel Blimp,Michael Powell and Emeric Pressburger,1943,https://boxd.it/1wwk,
+206,Paris Is Burning,Jennie Livingston,1990,https://boxd.it/1jzg,
+207,The Tree of Life,Terrence Malick,2011,https://boxd.it/1Zu8,
+208,Zama,Lucrecia Martel,2017,https://boxd.it/aDDq,
+209,One Way or Another,Sara Gómez,1977,https://boxd.it/53UU,
+210,Mad Max: Fury Road,George Miller,2015,https://boxd.it/2DjO,
+211,By the Bluest of Seas,Boris Barnet,1936,https://boxd.it/3IVq,
+212,Suspiria,Dario Argento,1977,https://boxd.it/1SNW,
+213,Brief Encounter,David Lean,1945,https://boxd.it/29sm,
+214,Army of Shadows,Jean-Pierre Melville,1969,https://boxd.it/1Mli,
+215,All About Eve,Joseph L. Mankiewicz,1950,https://boxd.it/29LI,
+216,Limite,Mário Peixoto,1931,https://boxd.it/20iW,
+217,In a Lonely Place,Nicholas Ray,1950,https://boxd.it/1JgO,
+218,Pink Flamingos,John Waters,1972,https://boxd.it/29NO,
+219,The Deer Hunter,Michael Cimino,1978,https://boxd.it/1T6O,
+220,Twin Peaks: Fire Walk with Me,David Lynch,1992,https://boxd.it/27Qw,
+221,Duck Soup,Leo McCarey,1933,https://boxd.it/25PG,
+222,Melancholia,Lars von Trier,2011,https://boxd.it/bPI,
+223,Twenty Years Later,Eduardo Coutinho,1984,https://boxd.it/33Oo,
+224,Raiders of the Lost Ark,Steven Spielberg,1981,https://boxd.it/2bbs,
+225,Harlan County U.S.A.,Barbara Kopple,1976,https://boxd.it/1fJw,
+226,A Touch of Zen,King Hu,1970,https://boxd.it/SFm,
+227,The Green Ray,Éric Rohmer,1986,https://boxd.it/t8W,
+228,Happy Together,Wong Kar-wai,1997,https://boxd.it/1Ha0,
+229,Star Wars,George Lucas,1977,https://boxd.it/72s,
+230,Blue,Krzysztof Kieślowski,1993,https://boxd.it/3iyA,
+231,Napoleon,Abel Gance,1927,https://boxd.it/WEC,
+232,Intolerance: Love's Struggle Throughout the Ages,D.W. Griffith,1916,https://boxd.it/25Qk,
+233,Flowers of Shanghai,Hou Hsiao-hsien,1998,https://boxd.it/Omq,
+234,As I Was Moving Ahead Occasionally I Saw Brief Glimpses of Beauty,Jonas Mekas,2000,https://boxd.it/4gcu,
+235,Europe '51,Roberto Rossellini,1952,https://boxd.it/Zji,
+236,Grave of the Fireflies,Isao Takahata,1988,https://boxd.it/1RUM,
+237,Crash,David Cronenberg,1996,https://boxd.it/29n2,
+238,The Hour of the Furnaces,Fernando Solanas,1968,https://boxd.it/3a1S,
+239,Cries and Whispers,Ingmar Bergman,1972,https://boxd.it/1WK8,
+240,The Crowd,King Vidor,1928,https://boxd.it/25Q0,
+241,"Je, Tu, Il, Elle",Chantal Akerman,1974,https://boxd.it/3gWK,
+242,Petite Maman,Céline Sciamma,2021,https://boxd.it/s6je,
+243,In Vanda's Room,Pedro Costa,2000,https://boxd.it/36r8,
+244,My Darling Clementine,John Ford,1946,https://boxd.it/25LE,
+245,The Quince Tree Sun,Víctor Erice,1992,https://boxd.it/3isM,
+246,Annie Hall,Woody Allen,1977,https://boxd.it/29M2,
+247,Pandora's Box,Georg Wilhelm Pabst,1929,https://boxd.it/29jE,
+248,"Oh, Sun",Med Hondo,1970,https://boxd.it/5TR4,
+249,"Distant Voices, Still Lives",Terence Davies,1988,https://boxd.it/Yv8,
+250,Morvern Callar,Lynne Ramsay,2002,https://boxd.it/1GDU,
+251,Sullivan's Travels,Preston Sturges,1941,https://boxd.it/1Ko0,
+252,The Intruder,Claire Denis,2004,https://boxd.it/LrM,
+253,Born in Flames,Lizzie Borden,1983,https://boxd.it/19IC,
+254,Syndromes and a Century,Apichatpong Weerasethakul,2006,https://boxd.it/1qHQ,
+255,Earth,Aleksandr Dovzhenko,1930,https://boxd.it/MP6,
+256,Mouchette,Robert Bresson,1967,https://boxd.it/28Bs,
+257,Werckmeister Harmonies,Béla Tarr,2000,https://boxd.it/1zzw,
+258,Nostalgia for the Light,Patricio Guzmán,2010,https://boxd.it/2nGM,
+259,A Canterbury Tale,Michael Powell and Emeric Pressburger,1944,https://boxd.it/1LIg,
+260,A Clockwork Orange,Stanley Kubrick,1971,https://boxd.it/2aVE,
+261,The Last Laugh,F.W. Murnau,1924,https://boxd.it/22es,
+262,Taste of Cherry,Abbas Kiarostami,1997,https://boxd.it/1m8W,
+263,Possession,Andrzej Żuławski,1981,https://boxd.it/1BPm,
+264,Videodrome,David Cronenberg,1983,https://boxd.it/29uC,
+`
