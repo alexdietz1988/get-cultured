@@ -5,7 +5,7 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
   const { setEntryType } = categories.handlers;
   const { dateRange, view, displayLimit } = displaySettings;
   const { setDateRange, setDisplayLimit, setSelectedCreator } = displaySettings.handlers;
-  const { dateRangeDefault, displayYear } = utilities;
+  const { savedSettings, dateRangeDefault, displayYear } = utilities;
   const { setSavedSettings } = utilities.handlers;
   const currentList = lists[mediaType].lists[list]
   const creatorName = lists[mediaType].specialNames.creators;
@@ -117,6 +117,7 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
         const renderCreator = (
           <div>
             <p onClick={() => {
+              setSavedSettings({ mediaType, list, entryType, dateRange, view });
               setDateRange(dateRangeDefault);
               setSelectedCreator(entry.name);
               setEntryType('works');
