@@ -5,7 +5,7 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
   const { setEntryType } = categories.handlers;
   const { dateRange, view, displayLimit, selectedCreator } = displaySettings;
   const { setDateRange, setDisplayLimit, setSelectedCreator } = displaySettings.handlers;
-  const { savedSettings, dateRangeDefault, displayYear } = utilities;
+  const { dateRangeDefault, displayYear } = utilities;
   const { setSavedSettings } = utilities.handlers;
   const currentList = lists[mediaType].lists[list]
   const creatorName = lists[mediaType].specialNames.creators;
@@ -87,7 +87,10 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
       )
   }
   const compactView = () => {
-    const height = entryType === 'creators' || currentList.noCreators ? '75px' : '125px';
+    const isUltraCompact = entryType === 'creators' || 
+      entryType === 'works' && currentList.noCreators ||
+      entryType === 'works' && selectedCreator
+
     return (
     <section
       style={{
@@ -131,16 +134,7 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
           </div>)
         return (
           <div
-            style={{
-              width: '150px',
-              height: height,
-              margin: '15px',
-              textAlign: 'center',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'start',
-              overflow: 'scroll'
-            }}
+            className={'entry-compact ' + (isUltraCompact && 'entry-ultra-compact')}
             key={'item' + i}>
             {entryType === 'works' ? renderWork : renderCreator}
           </div>)
