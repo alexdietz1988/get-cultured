@@ -6,7 +6,7 @@ export const ViewControls = ({ data, list, categories, displaySettings }) => {
     const { entryType, mediaType } = categories;
     const { setEntryType } = categories.handlers;
     const { view, query } = displaySettings;
-    const { setView, setDisplayLimit, setQuery } = displaySettings.handlers;
+    const { setView, setDisplayLimit, setQuery, setSelectedCreator } = displaySettings.handlers;
     const currentList = lists[mediaType].lists[list];
     const [searchInput, setSearchInput] = useState('');
     return (
@@ -19,6 +19,9 @@ export const ViewControls = ({ data, list, categories, displaySettings }) => {
                     className={entryType === currentEntryType ? 'button is-primary' : 'button'}
                     onClick={() => {
                         setEntryType(currentEntryType);
+                        if (currentEntryType  === 'creators') {
+                            setSelectedCreator('');
+                        }
                         setNewFilters(true);
                         }}>
                 {lists[mediaType].specialNames[currentEntryType][0].toUpperCase() + 

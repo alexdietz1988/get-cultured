@@ -3,7 +3,7 @@ export const DateControls = ({ data, categories, displaySettings, utilities }) =
     const { setNewFilters } = data.handlers;
     const { list, mediaType, entryType } = categories;
     const { dateRange } = displaySettings;
-    const { setDateRange } = displaySettings.handlers;
+    const { setDateRange, setSelectedCreator } = displaySettings.handlers;
     const { dateRangeDefault } = utilities;
     const entries = data.entries[entryType];
     const currentList = lists[mediaType].lists[list]
@@ -41,6 +41,7 @@ export const DateControls = ({ data, categories, displaySettings, utilities }) =
                         ? dateRangeDefault
                         : { start: dateRangeDefault.start, end: 1500 }
                     setDateRange(newDateRange);
+                    setSelectedCreator('');
                     setNewFilters(true);
                 }}>
                 Earlier
@@ -62,6 +63,7 @@ export const DateControls = ({ data, categories, displaySettings, utilities }) =
                         className={isSelected ? 'button is-primary' : 'button'}
                         onClick={() => {
                             setDateRange(isSelected ? reset : {start: i, end: i + range});
+                            setSelectedCreator('');
                             setNewFilters(true);
                         }}
                     >

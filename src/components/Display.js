@@ -3,7 +3,7 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
   const { setNewFilters } = data.handlers;
   const { mediaType, entryType, list } = categories;
   const { setEntryType } = categories.handlers;
-  const { dateRange, view, displayLimit } = displaySettings;
+  const { dateRange, view, displayLimit, selectedCreator } = displaySettings;
   const { setDateRange, setDisplayLimit, setSelectedCreator } = displaySettings.handlers;
   const { savedSettings, dateRangeDefault, displayYear } = utilities;
   const { setSavedSettings } = utilities.handlers;
@@ -99,7 +99,7 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
           <div>
             <p>{entry.title}</p>
             <p className='has-text-weight-light'>
-              {entry.creator !== 'No Creator Listed' &&
+              {(entry.creator !== 'No Creator Listed' && selectedCreator !== entry.creator) &&
               <span 
               onClick={() => {
                 setSavedSettings({ mediaType, list, entryType, dateRange, view });
