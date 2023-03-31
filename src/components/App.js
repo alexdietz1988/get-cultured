@@ -141,7 +141,10 @@ const App = () => {
   const [list, setList] = useState('greatestBooksFiction');
   const [entryType, setEntryType] = useState('works');
 
-  const dateRangeDefault = {start: -700, end: new Date().getFullYear()};
+  const dateRangeDefault = {
+    start: lists[mediaType].lists[list].startYear,
+    end: new Date().getFullYear()
+  };
   const [dateRange, setDateRange] = useState(dateRangeDefault);
 
   const [query, setQuery] = useState('');

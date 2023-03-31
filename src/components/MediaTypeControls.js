@@ -2,8 +2,8 @@ export const MediaTypeControls = ({ data, categories, displaySettings }) => {
     const { lists } = data;
     const { setLoading } = data.handlers;
     const { mediaType } = categories;
-    const { setMediaType, setList } = categories.handlers;
-    const { setSelectedCreator } = displaySettings.handlers;
+    const { setMediaType, setList, setEntryType } = categories.handlers;
+    const { setSelectedCreator, setDateRange } = displaySettings.handlers;
     return (
         <>
             <div className='is-inline buttons mr-2 mb-0 has-addons'>
@@ -13,7 +13,15 @@ export const MediaTypeControls = ({ data, categories, displaySettings }) => {
                 className={mediaType === currentMediaType ? 'button mb-0 is-primary' : 'button'}
                 onClick={() => {
                     setMediaType(currentMediaType);
-                    setList(lists[currentMediaType].default);
+                    const newList = lists[currentMediaType].default;
+                    setList(newList);
+                    if (lists[currentMediaType].lists[newList].noCreators) {
+                        setEntryType('works');
+                    }
+                    setDateRange({
+                        start: lists[currentMediaType].lists[newList].startYear,
+                        end: new Date().getFullYear()
+                    })
                     setSelectedCreator('');
                     setLoading(true);
                     }}>
