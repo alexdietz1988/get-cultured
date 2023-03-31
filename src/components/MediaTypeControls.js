@@ -10,7 +10,7 @@ export const MediaTypeControls = ({ data, categories, displaySettings }) => {
             {Object.keys(lists).map(currentMediaType => (
                 <button
                 key={currentMediaType}
-                className={mediaType === currentMediaType ? 'button mb-0 is-primary' : 'button'}
+                className={'button ' + (mediaType === currentMediaType && 'mb-0 is-primary')}
                 onClick={() => {
                     setMediaType(currentMediaType);
                     const newList = lists[currentMediaType].default;

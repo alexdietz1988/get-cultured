@@ -35,7 +35,7 @@ export const DateControls = ({ data, categories, displaySettings, utilities }) =
             buttons.push(
                 <button
                 key={'earlier'}
-                className={dateRange.end <= 1500 ? 'button is-primary' : 'button'}
+                className={'button ' + (dateRange.end <= 1500 && 'is-primary')}
                 onClick={() => {
                     const newDateRange = dateRange.end <= 1500
                         ? dateRangeDefault
@@ -60,7 +60,7 @@ export const DateControls = ({ data, categories, displaySettings, utilities }) =
                 buttons.push(
                     <button
                         key={range + '-' + i}
-                        className={isSelected ? 'button is-primary' : 'button'}
+                        className={'button ' + (isSelected && 'is-primary')}
                         onClick={() => {
                             setDateRange(isSelected ? reset : {start: i, end: i + range});
                             setSelectedCreator('');

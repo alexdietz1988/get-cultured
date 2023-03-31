@@ -16,7 +16,7 @@ export const ViewControls = ({ data, list, categories, displaySettings }) => {
             {['works', 'creators'].map(currentEntryType => 
                 <button
                     key={currentEntryType}
-                    className={entryType === currentEntryType ? 'button is-primary' : 'button'}
+                    className={'button ' + (entryType === currentEntryType && 'is-primary')}
                     onClick={() => {
                         setEntryType(currentEntryType);
                         if (currentEntryType  === 'creators') {
@@ -34,7 +34,7 @@ export const ViewControls = ({ data, list, categories, displaySettings }) => {
             {['compact', 'table'].map(currentView => (
                 <button
                     key={currentView}
-                    className={view === currentView ? 'button is-primary' : 'button'}
+                    className={'button ' + (view === currentView && 'is-primary')}
                     onClick={() => {
                         setView(currentView);
                         setDisplayLimit(currentView === 'compact' ? 50 : 25);

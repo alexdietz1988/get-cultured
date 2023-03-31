@@ -11,9 +11,13 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
   const creatorName = lists[mediaType].specialNames.creators;
   const workName = lists[mediaType].specialNames.works;
   const displayYearRange = (year, endYear) => {
-    return year === endYear
-      ? displayYear(year)
-      : displayYear(year) + '–' + endYear
+    if (year === endYear) {
+      return displayYear(year);
+    } else if (year < 0 && endYear < 0) {
+      return `${Math.abs(year)}–${Math.abs(endYear)} BC`;
+    } else {
+      return `${displayYear(year)}–${displayYear(endYear)}`;
+    }
   }
   const tableView = () => {
     const worksContent = (
@@ -90,13 +94,8 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
     const isUltraCompact = entryType === 'creators' || 
       entryType === 'works' && currentList.noCreators ||
       entryType === 'works' && selectedCreator
-
     return (
-    <section
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-      }}>
+    <section style={{ display: 'flex', flexWrap: 'wrap' }}>
       {entriesToDisplay.map((entry,i) => {
         const renderWork = (
           <div>
@@ -143,12 +142,8 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
   )}
   const entriesDisplay = view === 'table' ? tableView() : compactView()
   const loadMoreButton = (
-    <div className={ view === 'table'
-      ? 'container'
-      : 'container is-flex is-justify-content-center'}>
-      <button className='button' onClick={() => {
-        setDisplayLimit(displayLimit + 50);
-        }}>
+    <div className={'container ' + (view === 'table' && 'is-flex is-justify-content-center')}>
+      <button className='button' onClick={() => setDisplayLimit(displayLimit + 50)}>
         Load more
       </button>
     </div>
@@ -158,14 +153,12 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
       {entryType === 'creators' &&
         <p className='is-size-7 ml-3'>Rank (e.g. "#1") is that of {creatorName.slice(0,-1)}'s highest ranked work.
         Dates are those of the {creatorName.slice(0,-1)}'s {workName} in the current list.</p>}
-      {(entriesToDisplay.length > 0)
-        ? (
+      {(entriesToDisplay.length > 0) && (
           <>
             {entriesDisplay}
-            {entriesFiltered.length > displayLimit ? loadMoreButton : <></>}
+            {entriesFiltered.length > displayLimit && loadMoreButton}
           </>
         )
-        : <></>
       }
     </section>
     );

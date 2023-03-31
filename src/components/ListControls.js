@@ -31,9 +31,7 @@ export const ListControls = ({ data, mediaType, list, setList }) => {
                             ? Object.keys(lists[mediaType].lists).map(thisList => (
                                 <a
                                     key={thisList}
-                                    className={list === thisList
-                                        ? 'dropdown-item is-active'
-                                        : 'dropdown-item'}
+                                    className={'dropdown-item ' + (list === thisList && 'is-active')}
                                     onClick={() => {
                                         setList(thisList);
                                         setLoading(true);
