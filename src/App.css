@@ -1,14 +1,55 @@
+.desktop-only * {
+    display: none;
+}
+
+.button, .button * {
+    max-width: 80vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search {
+    display: flex;
+    align-items: flex-start
+}
+
 .entry-compact {
-    width: 150px;
+    width: 25vw;
     height: 125px;
-    margin: 15px;
+    margin: 10px 2vw;
+    font-size: 14px;
     text-align: center;
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
     overflow: scroll;
 }
 
 .entry-ultra-compact {
     height: 75px;
+}
+
+.display-container {
+    padding: 0;
+}
+
+@media screen and (min-width: 500px) {
+    .entry-compact {
+        width: 150px;
+        height: 100px;
+        margin: 15px;
+        font-size: initial;
+    }
+
+    .search {
+        display: inline;
+    }
+
+    .mobile-only * {
+        display: none;
+    }
+
+    .desktop-only * {
+        display: initial;
+    }
 }
