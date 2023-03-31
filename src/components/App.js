@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-import { MediaTypeControls } from "./Controls/MediaTypeControls.js";
-import { ListControls } from "./Controls/ListControls.js"
-import { ViewControls } from "./Controls/ViewControls.js";
-import { DateControls } from "./Controls/DateControls.js";
-import { Tags } from "./Controls/Tags.js";
+import { MediaTypeControls } from "./MediaTypeControls.js";
+import { ListControls } from "./ListControls.js"
+import { ViewControls } from "./ViewControls.js";
+import { DateControls } from "./DateControls.js";
+import { Tags } from "./Tags.js";
 
 import { Display } from "./Display.js";
 
@@ -144,6 +144,7 @@ const App = () => {
   const dateRangeDefault = {start: -700, end: new Date().getFullYear()};
   const [dateRange, setDateRange] = useState(dateRangeDefault);
 
+  const [query, setQuery] = useState('');
   const [selectedCreator, setSelectedCreator] = useState('');
   const [view, setView] = useState('compact');
   const [displayLimit, setDisplayLimit] = useState(25);
@@ -173,7 +174,8 @@ const App = () => {
     displayLimit,
     dateRange,
     selectedCreator,
-    handlers: { setView, setDisplayLimit, setDateRange, setSelectedCreator }
+    query,
+    handlers: { setView, setDisplayLimit, setDateRange, setSelectedCreator, setQuery }
   }
   const utilities = {
     dateRangeDefault,
@@ -188,7 +190,12 @@ const App = () => {
     for (let entry of allEntries) {
       const inDateRange = entry.year >= dateRange.start && entry.year < dateRange.end;
       const creatorMatch = selectedCreator === '' || selectedCreator === entry.creator;
-      if (inDateRange && creatorMatch) {
+      const queryMatch = 
+        query === '' ||
+        (entryType === 'works' && entry.title.toLowerCase().includes(query.toLowerCase())) ||
+        (entryType === 'works' && entry.creator.toLowerCase().includes(query.toLowerCase())) ||
+        (entryType === 'creators' && entry.name.toLowerCase().includes(query.toLowerCase()))
+      if (inDateRange && creatorMatch && queryMatch) {
           filtered.push(entry);
       }
     }
@@ -269,7 +276,7 @@ const App = () => {
                     data={data}
                     categories={categories}
                     displaySettings={displaySettings}
-                    utilities={utilities} 
+                    utilities={utilities}
                 />
             </div>
           </section>

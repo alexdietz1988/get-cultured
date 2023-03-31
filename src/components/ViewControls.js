@@ -1,11 +1,14 @@
+import { useState } from "react";
+
 export const ViewControls = ({ data, list, categories, displaySettings }) => {
     const { lists } = data;
     const { setNewFilters } = data.handlers;
     const { entryType, mediaType } = categories;
     const { setEntryType } = categories.handlers;
-    const { view } = displaySettings;
-    const { setView, setDisplayLimit } = displaySettings.handlers;
+    const { view, query } = displaySettings;
+    const { setView, setDisplayLimit, setQuery } = displaySettings.handlers;
     const currentList = lists[mediaType].lists[list];
+    const [searchInput, setSearchInput] = useState('');
     return (
         <>
             {!currentList.noCreators &&
@@ -37,6 +40,21 @@ export const ViewControls = ({ data, list, categories, displaySettings }) => {
                 </button>
             ))}
             </div>
+            <div className='mx-4 is-inline control has-icons-right' style={{display: 'flex', alignItems: 'top'}}>
+                <input onChange={e => {
+                  setSearchInput(e.target.value);
+                  setQuery(e.target.value);
+                  setNewFilters(true);
+                }} value={searchInput} className='input is-inline' placeholder='Search title or creator' />
+                {query !== '' &&
+                <span className="icon is-right">
+                  <button className="delete is-small" onClick={() => {
+                    setSearchInput('');
+                    setQuery('');
+                    setNewFilters(true);
+                  }}/>
+                </span>}
+              </div>
         </>
     )
 }

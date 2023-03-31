@@ -2,10 +2,17 @@ export const Tags = ({ data, categories, displaySettings, utilities }) => {
     const { setNewFilters } = data.handlers;
     const { setMediaType, setEntryType, setList } = categories.handlers;
     const { dateRangeDefault, displayYear, savedSettings } = utilities;
-    const { dateRange, selectedCreator } = displaySettings;
-    const { setDateRange, setSelectedCreator, setView } = displaySettings.handlers;
+    const { dateRange, selectedCreator, query } = displaySettings;
+    const { setDateRange, setSelectedCreator, setView, setQuery } = displaySettings.handlers;
     const defaultDates = (dateRange.start === dateRangeDefault.start) && 
         (dateRange.end === dateRangeDefault.end);
+    function returnToSavedSettings() {
+        setMediaType(savedSettings.mediaType);
+        setEntryType(savedSettings.entryType);
+        setList(savedSettings.list);
+        setDateRange(savedSettings.dateRange);
+        setView(savedSettings.view);
+    }
     const selectedDateTag = !defaultDates
         ? (
             <span 
@@ -25,11 +32,7 @@ export const Tags = ({ data, categories, displaySettings, utilities }) => {
         ? (
             <span className='tag is-medium is-warning mr-2' onClick={() => {
                 setSelectedCreator('');
-                setMediaType(savedSettings.mediaType);
-                setEntryType(savedSettings.entryType);
-                setList(savedSettings.list);
-                setDateRange(savedSettings.dateRange);
-                setView(savedSettings.view);
+                returnToSavedSettings();
                 setNewFilters(true);
                 }}>
                 {selectedCreator}
@@ -37,10 +40,11 @@ export const Tags = ({ data, categories, displaySettings, utilities }) => {
             </span>
         )
         : <></>;
-    return (!defaultDates || selectedCreator) && (
-            <>
-                {selectedDateTag}
-                {selectedCreatorTag}
-            </>
-        )
+    const tags = (
+        <>
+            {selectedDateTag}
+            {selectedCreatorTag}
+        </>
+    )
+    return (defaultDates && selectedCreator === '') ? <></> : tags;
 }
