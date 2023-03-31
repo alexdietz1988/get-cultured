@@ -71,25 +71,13 @@ export const DateControls = ({ data, categories, displaySettings, utilities }) =
                     </button>)
             }
         }
-        return buttons;
+        return <div className='buttons mb-0 has-addons'>{buttons}</div>;
     }
     return(
         <div>
-            {!shortTimePeriod && (
-                <div className='buttons mb-0 has-addons'>
-                    {dateButtons(100)}
-                </div>
-            )}
-            {(dateRange.end - dateRange.start <= 100 || shortTimePeriod) && (
-                <div className='buttons mb-0 has-addons'>
-                    {dateButtons(10)}
-                </div>
-            )}
-            {dateRange.end - dateRange.start <= 10 && (
-                <div className='buttons mb-0 has-addons'>
-                    {dateButtons(1)}
-                </div>
-            )}
+            {!shortTimePeriod && dateButtons(100)}
+            {(dateRange.end - dateRange.start <= 100 || shortTimePeriod) && dateButtons(10)}
+            {dateRange.end - dateRange.start <= 10 && dateButtons(1)}
         </div>
     )
 }
