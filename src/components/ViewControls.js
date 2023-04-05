@@ -30,20 +30,20 @@ export const ViewControls = ({ data, list, categories, displaySettings }) => {
             )}
             </div>
             }
-            <div className='is-inline buttons has-addons'>
-            {['compact', 'table'].map(currentView => (
-                <button
-                    key={currentView}
-                    className={'button ' + (view === currentView && 'is-primary')}
-                    onClick={() => {
-                        setView(currentView);
-                        setDisplayLimit(currentView === 'compact' ? 50 : 25);
-                        }}>
-                {currentView[0].toUpperCase() + currentView.slice(1)}
-                </button>
-            ))}
-            </div>
-            <div className='mx-4 is-inline control has-icons-right' style={{display: 'flex', alignItems: 'top'}}>
+            <button
+                className={'button mr-4 ' + (view === 'compact' && 'is-primary')}
+                onClick={() => {
+                    setView(view === 'compact' ? 'table' : 'compact');
+                    setDisplayLimit(view === 'compact' ? 25 : 50);
+                    }}>
+                <span>Compact</span>
+                {view === 'compact' && 
+                <span className="icon is-right">
+                    <i className="delete is-small"/>
+                </span>
+                }
+            </button>
+            <div className='search control has-icons-right'>
                 <input onChange={e => {
                   setSearchInput(e.target.value);
                   setQuery(e.target.value);

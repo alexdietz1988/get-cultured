@@ -1,3 +1,18 @@
+.desktop-only * {
+    display: none;
+}
+
+.button, .button * {
+    max-width: 80vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search {
+    display: flex;
+    align-items: flex-start
+}
+
 .entry-compact {
     width: 120px;
     height: 125px;
@@ -21,4 +36,29 @@
 
 .entry-ultra-compact {
     height: 75px;
+}
+
+.display-container {
+    padding: 0;
+}
+
+@media screen and (min-width: 500px) {
+    .entry-compact {
+        width: 150px;
+        height: 100px;
+        margin: 15px;
+        font-size: initial;
+    }
+
+    .search {
+        display: inline;
+    }
+
+    .mobile-only * {
+        display: none;
+    }
+
+    .desktop-only * {
+        display: initial;
+    }
 }

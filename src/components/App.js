@@ -179,6 +179,9 @@ const App = () => {
   const [view, setView] = useState('compact');
   const [displayLimit, setDisplayLimit] = useState(25);
 
+  const currentList = lists[mediaType].lists[list];
+  const shortTimePeriod = dateRangeDefault.end - currentList.startYear < 100;
+
   const data = {
     lists,
     entries,
@@ -209,6 +212,7 @@ const App = () => {
   }
   const utilities = {
     dateRangeDefault,
+    datesAreDefault: dateRange.start === dateRangeDefault.start && dateRange.end === dateRangeDefault.end,
     displayYear: year => year >= 0 ? year : Math.abs(year) + ' BC',
     savedSettings,
     handlers: { setSavedSettings },
@@ -255,6 +259,25 @@ const App = () => {
       }
   }, [loading, newFilters, displayLimit])
 
+  const renderDateControls = elementType => {
+    const renderDateControl = range => (
+      <DateControls
+        data={data}
+        categories={categories}
+        displaySettings={displaySettings}
+        utilities={utilities}
+        elementType={elementType}
+        range={range} 
+      />
+    )
+    return (
+    <>
+      {!shortTimePeriod && renderDateControl(100)}
+      {(dateRange.end - dateRange.start <= 100 || shortTimePeriod) && renderDateControl(10)}
+      {dateRange.end - dateRange.start <= 10 && renderDateControl(1)}
+    </>
+  )}
+
   return (
     <>
       <div className='section pb-0'>
@@ -270,14 +293,14 @@ const App = () => {
         : (
         <>
           <section className='section pb-2'>
-            <div className='mt-2'>
+            <div className='mb-3'>
               <MediaTypeControls
                 data={data}
                 categories={categories}
                 displaySettings={displaySettings}
               />
             </div>
-            <div className='my-3'>
+            <div className='mb-3'>
               <ListControls 
                   data={data}
                   mediaType={mediaType} 
@@ -294,12 +317,12 @@ const App = () => {
               />
             </div>
             <div className='mt-4 mb-3'>
-                <DateControls
-                    data={data}
-                    categories={categories}
-                    displaySettings={displaySettings}
-                    utilities={utilities}
-                />
+              <div className='mobile-only field is-grouped'>
+                {renderDateControls('dropdown')}
+              </div>
+              <div className='desktop-only'>
+                {renderDateControls('buttons')}
+              </div>
             </div>
             <div className='my-3'>
                 <Tags

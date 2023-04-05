@@ -92,10 +92,10 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
   }
   const compactView = () => {
     const isUltraCompact = entryType === 'creators' || 
-      entryType === 'works' && currentList.noCreators ||
-      entryType === 'works' && selectedCreator
+      (entryType === 'works' && currentList.noCreators) ||
+      (entryType === 'works' && selectedCreator)
     return (
-    <section style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <section style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
       {entriesToDisplay.map((entry,i) => {
         const renderWork = (
           <div>
@@ -142,7 +142,7 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
   )}
   const entriesDisplay = view === 'table' ? tableView() : compactView()
   const loadMoreButton = (
-    <div className={'container ' + (view === 'table' && 'is-flex is-justify-content-center')}>
+    <div className={'container is-flex is-justify-content-center'}>
       <button className='button' onClick={() => setDisplayLimit(displayLimit + 50)}>
         Load more
       </button>
