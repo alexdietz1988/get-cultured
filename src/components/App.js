@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+import { SignIn } from "./SignIn";
+
 import { MediaTypeControls } from "./MediaTypeControls.js";
 import { ListControls } from "./ListControls.js"
 import { ViewControls } from "./ViewControls.js";
@@ -75,6 +77,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [newFilters, setNewFilters] = useState(false);
   const defaultData = { works: [], creators: [] };
+  const [user, setUser] = useState('');
 
   const [lists, setLists] = useState({
     literature: {
@@ -293,6 +296,9 @@ const App = () => {
         : (
         <>
           <section className='section pb-2'>
+            <div className='mb-3'>
+              <SignIn user={user} setUser={setUser}/>
+            </div>
             <div className='mb-3'>
               <MediaTypeControls
                 data={data}
