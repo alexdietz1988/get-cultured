@@ -13,6 +13,9 @@ import { greatestBooksNonfiction } from '../data/greatestBooksNonfiction';
 import { rsAlbums } from '../data/rsAlbums';
 import { rsTV } from '../data/rsTV';
 import { ssCritics } from '../data/ssCritics';
+import { pitchfork2010s } from "../data/pitchfork2010s.js";
+import { slateNonfiction } from "../data/slateNonfiction.js";
+import { rtDocs } from "../data/rtDocs.js";
 
 import { parse } from '@vanillaes/csv';
 
@@ -23,6 +26,9 @@ const processList = list => {
         rsAlbums,
         rsTV,
         ssCritics,
+        pitchfork2010s,
+        slateNonfiction,
+        rtDocs
     }
     const worksUnprocessed = parse(originalData[list]);
     const works = [];
@@ -89,6 +95,14 @@ const App = () => {
           startYear: -1400,
           data: defaultData,
         },
+        slateNonfiction: {
+          label: 'Slate: The 50 Best Nonfiction Books of the Past 25 Years (2019)',
+          url: 'https://slate.com/human-interest/2019/11/50-best-nonfiction-books.html',
+          about: '',
+          startYear: 1995,
+          noRanks: true,
+          data: defaultData,
+        }
       }
     },
     music: {
@@ -102,6 +116,13 @@ const App = () => {
           startYear: 1955,
           data: defaultData,
         },
+        pitchfork2010s: {
+          label: 'Pitchfork: The 200 Best Albums of the 2010s',
+          about: <></>,
+          url: 'https://pitchfork.com/features/lists-and-guides/the-200-best-albums-of-the-2010s/',
+          startYear: 2010,
+          data: defaultData
+        }
       }
     },
     film: {
@@ -115,6 +136,13 @@ const App = () => {
           startYear: 1924,
           data: defaultData,
         },
+        rtDocs: {
+          label: 'Rotten Tomatoes: 100 Best-Reviewed Documentaries of All Time',
+          about: '',
+          url: 'https://editorial.rottentomatoes.com/guide/100-best-documentaries/',
+          startYear: 2001,
+          data: defaultData,
+        },
       }
     },
     television: {
@@ -126,7 +154,6 @@ const App = () => {
           about: <>A ranking by <em>Rolling Stone</em> magazine, last updated in 2022.</>,
           url: 'https://www.rollingstone.com/tv-movies/tv-movie-lists/best-tv-shows-of-all-time-1234598313/',
           startYear: 1951,
-          noCreators: true,
           data: { works: [], creators: [] },
         }
       }

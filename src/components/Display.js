@@ -113,7 +113,7 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
               <br />
               </span>
               }
-              #{entry.rank}, {displayYear(entry.year)}
+              {!currentList.noRanks && `#${entry.rank}, `}{displayYear(entry.year)}
             </p>
           </div>)
         const renderCreator = (
