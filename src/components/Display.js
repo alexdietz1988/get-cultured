@@ -1,4 +1,6 @@
-export const Display = ({ data, categories, displaySettings, utilities }) => {
+import { useState } from "react";
+
+export const Display = ({ data, categories, displaySettings, utilities, backend, userId }) => {
   const { lists, entriesFiltered, entriesToDisplay } = data;
   const { setNewFilters } = data.handlers;
   const { mediaType, entryType, list } = categories;
@@ -18,6 +20,35 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
     } else {
       return `${displayYear(year)}–${displayYear(endYear)}`;
     }
+  }
+  const [markedAsFinished, setMarkedAsFinished] = useState([]);
+  const markAsFinished = async (title, creator, year) => {
+    await backend.post('finished', {userId, title, creator, year});
+    getFinished();
+  }
+  const getFinished = async () => {
+    const response = await backend.get(`finished/?userId=${userId}`);
+    setMarkedAsFinished(response.data);
+  }
+  const renderFinishedStatus = (title, creator, year) => {
+    if (userId === '') {
+      return <></>;
+    } else if (markedAsFinished.some(el => 
+        el.title === title && 
+        el.creator === creator && 
+        el.year === year)) {
+      return (
+        <div 
+          className='tag is-info'>
+          ✓
+        </div>);
+    } else return (
+      <div
+        className='tag is-info is-light'
+        onClick={() => markAsFinished(title, creator, year)}>
+        ✓
+      </div>
+    )
   }
   const tableView = () => {
     const worksContent = (
@@ -98,24 +129,30 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
     <section style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
       {entriesToDisplay.map((entry,i) => {
         const renderWork = (
-          <div>
-            <p>{entry.title}</p>
-            <p className='has-text-weight-light'>
-              {(entry.creator !== 'No Creator Listed' && selectedCreator !== entry.creator) &&
-              <span 
-              onClick={() => {
-                setSavedSettings({ mediaType, list, entryType, dateRange, view });
-                setDateRange(dateRangeDefault);
-                setSelectedCreator(entry.creator);
-                setNewFilters(true);
-              }}>
-              <a>{entry.creator}</a>
-              <br />
-              </span>
-              }
-              {!currentList.noRanks && `#${entry.rank}, `}{displayYear(entry.year)}
-            </p>
-          </div>)
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div className='is-inline-block mr-2'>
+              <p>{entry.title}</p>
+              <div className='has-text-weight-light'>
+                {(entry.creator && selectedCreator !== entry.creator) &&
+                <p 
+                  onClick={() => {
+                    setSavedSettings({ mediaType, list, entryType, dateRange, view });
+                    setDateRange(dateRangeDefault);
+                    setSelectedCreator(entry.creator);
+                    setNewFilters(true);
+                  }}>
+                  <a>{entry.creator}</a>
+                </p>}
+                <p>
+                  <span className='mr-2'>{!currentList.noRanks && `#${entry.rank}, `}{displayYear(entry.year)}</span>
+                </p>
+              </div>
+            </div>
+            <div className='is-inline-block'>
+              {renderFinishedStatus(entry.title, entry.creator, entry.year)}
+            </div>
+          </div>
+          )
         const renderCreator = (
           <div>
             <p onClick={() => {
@@ -153,6 +190,7 @@ export const Display = ({ data, categories, displaySettings, utilities }) => {
       {entryType === 'creators' &&
         <p className='is-size-7 ml-3'>Rank (e.g. "#1") is that of {creatorName.slice(0,-1)}'s highest ranked work.
         Dates are those of the {creatorName.slice(0,-1)}'s {workName} in the current list.</p>}
+      <button onClick={() => getFinished()}>Get Finished</button>
       {(entriesToDisplay.length > 0) && (
           <>
             {entriesDisplay}

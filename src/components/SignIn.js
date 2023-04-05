@@ -1,15 +1,10 @@
 import { useState } from "react";
-import axios from 'axios'
 
-export const backend = axios.create({
-    baseURL: 'http://localhost:4000/'
-})
-
-export const SignIn = ({ user, setUser }) => {
+export const SignIn = ({ userId, setUserId, backend }) => {
     const [userInput, setUserInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
     const [signinType, setSigninType] = useState('login');
-    const postCredentials = async (signinType) => {
+    const postCredentials = async () => {
         const response = signinType === 'login' 
             ? await backend.post('auth/login', { 
                 user: userInput, 
@@ -19,10 +14,19 @@ export const SignIn = ({ user, setUser }) => {
                 password: passwordInput 
         })
         if (response.data.success) {
-            setUser(userInput);
+            setUserId(response.data.userId);
         }
     }
-    return (
+    const getFinished = async () => {
+        // const response = await backend.get('finished', {
+        //     userId: userId,
+        // })
+        // console.log(response)
+    }
+
+    return userId
+        ? <button className='button is-warning' onClick={() => setUserId('')}>Logout</button>
+        : (
     <form className='form control' onSubmit={e => {
         e.preventDefault();
         postCredentials();

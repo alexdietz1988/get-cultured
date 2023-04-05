@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from 'axios'
 
 import { SignIn } from "./SignIn";
 
@@ -77,7 +78,9 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [newFilters, setNewFilters] = useState(false);
   const defaultData = { works: [], creators: [] };
-  const [user, setUser] = useState('');
+  const [userId, setUserId] = useState('642da0fb02e85e64261c13c6');
+  const [finished, setFinished] = useState([]);
+  const backend = axios.create({ baseURL: 'http://localhost:4000/' });
 
   const [lists, setLists] = useState({
     literature: {
@@ -297,7 +300,7 @@ const App = () => {
         <>
           <section className='section pb-2'>
             <div className='mb-3'>
-              <SignIn user={user} setUser={setUser}/>
+              <SignIn userId={userId} setUserId={setUserId} backend={backend}/>
             </div>
             <div className='mb-3'>
               <MediaTypeControls
@@ -344,6 +347,8 @@ const App = () => {
             categories={categories}
             displaySettings={displaySettings}
             utilities={utilities}
+            backend={backend}
+            userId={userId}
           />
         </>
         )
