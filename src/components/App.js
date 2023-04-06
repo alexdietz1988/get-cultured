@@ -256,13 +256,13 @@ const App = () => {
 
   const backend = axios.create({ baseURL: 'http://localhost:4000/' });
   const [userId, setUserId] = useState('');
-  const [markedAsFinished, setMarkedAsFinished] = useState([]);
-  const getFinished = async () => {
-    const response = await backend.get(`finished/?userId=${userId}`);
-    setMarkedAsFinished(response.data);
+  const [savedWorks, setSavedWorks] = useState([]);
+  const getSavedWorks = async () => {
+    const response = await backend.get(`savedWork/?userId=${userId}`);
+    setSavedWorks(response.data);
   }
-  useEffect(() => { if (userId) getFinished(); }, [userId]);
-  const userData = { backend, userId, setUserId, markedAsFinished, getFinished };
+  useEffect(() => { if (userId) getSavedWorks(); }, [userId]);
+  const userData = { backend, userId, setUserId, savedWorks, getSavedWorks };
 
   return (
     <>

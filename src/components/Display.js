@@ -1,7 +1,7 @@
 export const Display = ({ data, categories, displaySettings, utilities, userData }) => {
   const { lists, entriesFiltered, entriesToDisplay } = data;
   const { setNewFilters } = data.handlers;
-  const { backend, userId, markedAsFinished, getFinished } = userData;
+  const { backend, userId, savedWorks, getSavedWorks } = userData;
   const { mediaType, entryType, list } = categories;
   const { setEntryType } = categories.handlers;
   const { dateRange, view, displayLimit, selectedCreator, finishedFilter } = displaySettings;
@@ -21,18 +21,20 @@ export const Display = ({ data, categories, displaySettings, utilities, userData
     }
   }
   const isFinished = (title, creator, year) => {
-    return markedAsFinished.some(el => 
+    return savedWorks.some(el => 
       el.title === title && 
       el.creator === creator && 
-      el.year === year)
+      el.year === year &&
+      el.status === 'finished'
+      )
   }
   const markAsFinished = async (title, creator, year) => {
-    await backend.post('finished', {userId, title, creator, year});
-    getFinished();
+    await backend.post('savedWork', {userId, title, creator, year, status: 'finished'});
+    getSavedWorks();
   }
   const markAsUnfinished = async (title, creator, year) => {
-    await backend.delete('finished', {params: {userId, title, creator, year}});
-    getFinished();
+    await backend.post('savedWork', {userId, title, creator, year, status: 'unfinished'});
+    getSavedWorks();
   }
   const renderFinishedStatus = (title, creator, year) => {
     if (userId === '') {
