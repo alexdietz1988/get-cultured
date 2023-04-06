@@ -1,14 +1,36 @@
 import { useState } from "react";
 
-export const ViewControls = ({ data, list, categories, displaySettings }) => {
+export const ViewControls = ({ data, list, categories, displaySettings, userData }) => {
     const { lists } = data;
     const { setNewFilters } = data.handlers;
     const { entryType, mediaType } = categories;
     const { setEntryType } = categories.handlers;
-    const { view, query } = displaySettings;
-    const { setView, setDisplayLimit, setQuery, setSelectedCreator } = displaySettings.handlers;
+    const { view, query, finishedFilter } = displaySettings;
+    const { setView, setDisplayLimit, setQuery, setSelectedCreator, setFinishedFilter } = displaySettings.handlers;
     const currentList = lists[mediaType].lists[list];
     const [searchInput, setSearchInput] = useState('');
+    const { userId } = userData;
+    const renderFinishedButton = () => {
+        const lookup = {
+            all: { 
+                clickHandler: () => setFinishedFilter('onlyUnfinished'), 
+                label: 'Finished + Unfinished'
+            },
+            onlyUnfinished: { 
+                clickHandler: () => setFinishedFilter('onlyFinished'),
+                label: 'Unfinished'
+            },
+            onlyFinished: {
+                clickHandler: () => setFinishedFilter('all'),
+                label: 'Finished'
+            }
+        }
+        return (
+            <button className='button mr-4' onClick={lookup[finishedFilter].clickHandler}>
+                {lookup[finishedFilter].label}
+            </button>
+        )
+    }
     return (
         <>
             {!currentList.noCreators &&
@@ -43,6 +65,7 @@ export const ViewControls = ({ data, list, categories, displaySettings }) => {
                 </span>
                 }
             </button>
+            {userId && renderFinishedButton()}
             <div className='search control has-icons-right'>
                 <input onChange={e => {
                   setSearchInput(e.target.value);

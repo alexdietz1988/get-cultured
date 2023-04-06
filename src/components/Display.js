@@ -4,7 +4,7 @@ export const Display = ({ data, categories, displaySettings, utilities, userData
   const { backend, userId, markedAsFinished, getFinished } = userData;
   const { mediaType, entryType, list } = categories;
   const { setEntryType } = categories.handlers;
-  const { dateRange, view, displayLimit, selectedCreator } = displaySettings;
+  const { dateRange, view, displayLimit, selectedCreator, finishedFilter } = displaySettings;
   const { setDateRange, setDisplayLimit, setSelectedCreator } = displaySettings.handlers;
   const { dateRangeDefault, displayYear } = utilities;
   const { setSavedSettings } = utilities.handlers;
@@ -20,6 +20,12 @@ export const Display = ({ data, categories, displaySettings, utilities, userData
       return `${displayYear(year)}–${displayYear(endYear)}`;
     }
   }
+  const isFinished = (title, creator, year) => {
+    return markedAsFinished.some(el => 
+      el.title === title && 
+      el.creator === creator && 
+      el.year === year)
+  }
   const markAsFinished = async (title, creator, year) => {
     await backend.post('finished', {userId, title, creator, year});
     getFinished();
@@ -31,10 +37,7 @@ export const Display = ({ data, categories, displaySettings, utilities, userData
   const renderFinishedStatus = (title, creator, year) => {
     if (userId === '') {
       return <></>;
-    } else if (markedAsFinished.some(el => 
-        el.title === title && 
-        el.creator === creator && 
-        el.year === year)) {
+    } else if (isFinished(title, creator, year)) {
       return (
         <div 
           className='tag is-info'
@@ -167,7 +170,11 @@ export const Display = ({ data, categories, displaySettings, utilities, userData
               #{entry.rank}, {displayYearRange(entry.year, entry.endYear)}
             </p>
           </div>)
-        return (
+        const hideEntry = entryType === 'works' && 
+          (isFinished(entry.title, entry.creator, entry.year) && finishedFilter === 'onlyUnfinished') ||
+          (!isFinished(entry.title, entry.creator, entry.year) && finishedFilter === 'onlyFinished')
+        return hideEntry ? <></>
+          : (
           <div
             className={'entry-compact ' + (isUltraCompact && 'entry-ultra-compact')}
             key={'item' + i}>
@@ -184,7 +191,7 @@ export const Display = ({ data, categories, displaySettings, utilities, userData
       </button>
     </div>
   )
-  return (
+return (
     <section className='section pt-0'>
       {entryType === 'creators' &&
         <p className='is-size-7 ml-3'>Rank (e.g. "#1") is that of {creatorName.slice(0,-1)}'s highest ranked work.

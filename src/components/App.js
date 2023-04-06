@@ -201,10 +201,11 @@ const App = () => {
   const [query, setQuery] = useState('');
   const [selectedCreator, setSelectedCreator] = useState('');
   const [view, setView] = useState('compact');
+  const [finishedFilter, setFinishedFilter] = useState('all');
   const [displayLimit, setDisplayLimit] = useState(25);
   const displaySettings = {
-    view, displayLimit, dateRange, selectedCreator, query,
-    handlers: { setView, setDisplayLimit, setDateRange, setSelectedCreator, setQuery }
+    view, displayLimit, dateRange, selectedCreator, query, finishedFilter,
+    handlers: { setView, setDisplayLimit, setDateRange, setSelectedCreator, setQuery, setFinishedFilter }
   }
   const [savedSettings, setSavedSettings] = useState({ mediaType, list, entryType, dateRange, view });
   const utilities = {
@@ -302,6 +303,7 @@ const App = () => {
                 list={list}
                 categories={categories}
                 displaySettings={displaySettings}
+                userData={userData}
               />
             </div>
             <div className='mt-4 mb-3'>
