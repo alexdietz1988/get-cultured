@@ -24,6 +24,10 @@ export const Display = ({ data, categories, displaySettings, utilities, userData
     await backend.post('finished', {userId, title, creator, year});
     getFinished();
   }
+  const markAsUnfinished = async (title, creator, year) => {
+    await backend.delete('finished', {params: {userId, title, creator, year}});
+    getFinished();
+  }
   const renderFinishedStatus = (title, creator, year) => {
     if (userId === '') {
       return <></>;
@@ -33,7 +37,8 @@ export const Display = ({ data, categories, displaySettings, utilities, userData
         el.year === year)) {
       return (
         <div 
-          className='tag is-info'>
+          className='tag is-info'
+          onClick={() => markAsUnfinished(title, creator, year)}>
           ✓
         </div>);
     } else return (
