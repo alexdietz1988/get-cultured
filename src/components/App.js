@@ -78,9 +78,6 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [newFilters, setNewFilters] = useState(false);
   const defaultData = { works: [], creators: [] };
-  const [userId, setUserId] = useState('642da0fb02e85e64261c13c6');
-  const [finished, setFinished] = useState([]);
-  const backend = axios.create({ baseURL: 'http://localhost:4000/' });
 
   const [lists, setLists] = useState({
     literature: {
@@ -165,63 +162,55 @@ const App = () => {
       }
     }
   });
-
   const [entries, setEntries] = useState([]);
   const [entriesFiltered, setEntriesFiltered] = useState([]);
   const [entriesToDisplay, setEntriesToDisplay] = useState([]);
+  const data = { lists, entries, entriesFiltered, entriesToDisplay, handlers: { setLoading, setNewFilters } };
 
   const [mediaType, setMediaType] = useState('literature');
   const [list, setList] = useState('greatestBooksFiction');
+  const currentList = lists[mediaType].lists[list];
   const [entryType, setEntryType] = useState('works');
+  const categories = { mediaType, list, entryType, handlers: { setMediaType, setList, setEntryType } };
 
   const dateRangeDefault = {
     start: lists[mediaType].lists[list].startYear,
     end: new Date().getFullYear()
   };
   const [dateRange, setDateRange] = useState(dateRangeDefault);
+  const shortTimePeriod = dateRangeDefault.end - currentList.startYear < 100;
+  const renderDateControls = elementType => {
+    const renderDateControl = range => (
+      <DateControls
+        data={data}
+        categories={categories}
+        displaySettings={displaySettings}
+        utilities={utilities}
+        elementType={elementType}
+        range={range} 
+      />
+    )
+    return (
+    <>
+      {!shortTimePeriod && renderDateControl(100)}
+      {(dateRange.end - dateRange.start <= 100 || shortTimePeriod) && renderDateControl(10)}
+      {dateRange.end - dateRange.start <= 10 && renderDateControl(1)}
+    </>
+  )}
 
   const [query, setQuery] = useState('');
   const [selectedCreator, setSelectedCreator] = useState('');
   const [view, setView] = useState('compact');
   const [displayLimit, setDisplayLimit] = useState(25);
-
-  const currentList = lists[mediaType].lists[list];
-  const shortTimePeriod = dateRangeDefault.end - currentList.startYear < 100;
-
-  const data = {
-    lists,
-    entries,
-    entriesFiltered,
-    entriesToDisplay,
-    handlers: { setLoading, setNewFilters }
-  }
-  const [savedSettings, setSavedSettings] = useState({
-    mediaType,
-    list,
-    entryType,
-    dateRange,
-    view
-  });
-  const categories = {
-    mediaType,
-    list,
-    entryType,
-    handlers: { setMediaType, setList, setEntryType }
-  }
   const displaySettings = {
-    view,
-    displayLimit,
-    dateRange,
-    selectedCreator,
-    query,
+    view, displayLimit, dateRange, selectedCreator, query,
     handlers: { setView, setDisplayLimit, setDateRange, setSelectedCreator, setQuery }
   }
+  const [savedSettings, setSavedSettings] = useState({ mediaType, list, entryType, dateRange, view });
   const utilities = {
-    dateRangeDefault,
+    dateRangeDefault, savedSettings, handlers: { setSavedSettings },
     datesAreDefault: dateRange.start === dateRangeDefault.start && dateRange.end === dateRangeDefault.end,
     displayYear: year => year >= 0 ? year : Math.abs(year) + ' BC',
-    savedSettings,
-    handlers: { setSavedSettings },
   }
 
   const applyFilters = () => {
@@ -242,7 +231,6 @@ const App = () => {
     setEntriesFiltered(filtered);
     setEntriesToDisplay(filtered.slice(0, displayLimit));
   }
-
   useEffect(() => {
       if (loading) {
         const currentEntries = lists[mediaType].lists[list].data;
@@ -265,24 +253,15 @@ const App = () => {
       }
   }, [loading, newFilters, displayLimit])
 
-  const renderDateControls = elementType => {
-    const renderDateControl = range => (
-      <DateControls
-        data={data}
-        categories={categories}
-        displaySettings={displaySettings}
-        utilities={utilities}
-        elementType={elementType}
-        range={range} 
-      />
-    )
-    return (
-    <>
-      {!shortTimePeriod && renderDateControl(100)}
-      {(dateRange.end - dateRange.start <= 100 || shortTimePeriod) && renderDateControl(10)}
-      {dateRange.end - dateRange.start <= 10 && renderDateControl(1)}
-    </>
-  )}
+  const backend = axios.create({ baseURL: 'http://localhost:4000/' });
+  const [userId, setUserId] = useState('');
+  const [markedAsFinished, setMarkedAsFinished] = useState([]);
+  const getFinished = async () => {
+    const response = await backend.get(`finished/?userId=${userId}`);
+    setMarkedAsFinished(response.data);
+  }
+  useEffect(() => { if (userId) getFinished(); }, [userId]);
+  const userData = { backend, userId, setUserId, markedAsFinished, getFinished };
 
   return (
     <>
@@ -300,7 +279,7 @@ const App = () => {
         <>
           <section className='section pb-2'>
             <div className='mb-3'>
-              <SignIn userId={userId} setUserId={setUserId} backend={backend}/>
+              <SignIn userData={userData}/>
             </div>
             <div className='mb-3'>
               <MediaTypeControls
@@ -347,8 +326,7 @@ const App = () => {
             categories={categories}
             displaySettings={displaySettings}
             utilities={utilities}
-            backend={backend}
-            userId={userId}
+            userData={userData}
           />
         </>
         )

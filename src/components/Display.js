@@ -1,8 +1,7 @@
-import { useState } from "react";
-
-export const Display = ({ data, categories, displaySettings, utilities, backend, userId }) => {
+export const Display = ({ data, categories, displaySettings, utilities, userData }) => {
   const { lists, entriesFiltered, entriesToDisplay } = data;
   const { setNewFilters } = data.handlers;
+  const { backend, userId, markedAsFinished, getFinished } = userData;
   const { mediaType, entryType, list } = categories;
   const { setEntryType } = categories.handlers;
   const { dateRange, view, displayLimit, selectedCreator } = displaySettings;
@@ -21,14 +20,9 @@ export const Display = ({ data, categories, displaySettings, utilities, backend,
       return `${displayYear(year)}–${displayYear(endYear)}`;
     }
   }
-  const [markedAsFinished, setMarkedAsFinished] = useState([]);
   const markAsFinished = async (title, creator, year) => {
     await backend.post('finished', {userId, title, creator, year});
     getFinished();
-  }
-  const getFinished = async () => {
-    const response = await backend.get(`finished/?userId=${userId}`);
-    setMarkedAsFinished(response.data);
   }
   const renderFinishedStatus = (title, creator, year) => {
     if (userId === '') {
@@ -129,7 +123,7 @@ export const Display = ({ data, categories, displaySettings, utilities, backend,
     <section style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
       {entriesToDisplay.map((entry,i) => {
         const renderWork = (
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start' }}>
             <div className='is-inline-block mr-2'>
               <p>{entry.title}</p>
               <div className='has-text-weight-light'>
@@ -190,7 +184,6 @@ export const Display = ({ data, categories, displaySettings, utilities, backend,
       {entryType === 'creators' &&
         <p className='is-size-7 ml-3'>Rank (e.g. "#1") is that of {creatorName.slice(0,-1)}'s highest ranked work.
         Dates are those of the {creatorName.slice(0,-1)}'s {workName} in the current list.</p>}
-      <button onClick={() => getFinished()}>Get Finished</button>
       {(entriesToDisplay.length > 0) && (
           <>
             {entriesDisplay}
