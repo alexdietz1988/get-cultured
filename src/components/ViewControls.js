@@ -1,19 +1,19 @@
 import { useState } from "react";
 
-export const ViewControls = ({ data, list, categories, displaySettings, userData }) => {
-    const { lists } = data;
+export const ViewControls = ({ data, categories, displaySettings, userData, utilities }) => {
+    const { currentListMetadata } = data;
     const { setNewFilters } = data.handlers;
     const { entryType, mediaType } = categories;
     const { setEntryType } = categories.handlers;
     const { view, query, finishedFilter } = displaySettings;
     const { setView, setDisplayLimit, setQuery, setSelectedCreator, setFinishedFilter } = displaySettings.handlers;
-    const currentList = lists[mediaType].lists[list];
     const [searchInput, setSearchInput] = useState('');
     const { userId } = userData;
+    const { mediaTypes } = utilities;
     return (
         <>
             <div className='mb-3'>
-            {!currentList.noCreators &&
+            {!currentListMetadata.noCreators &&
             <div className='is-inline mr-4 mb-0 buttons has-addons'>
             {['works', 'creators'].map(currentEntryType => 
                 <button
@@ -26,8 +26,8 @@ export const ViewControls = ({ data, list, categories, displaySettings, userData
                         }
                         setNewFilters(true);
                         }}>
-                {lists[mediaType].specialNames[currentEntryType][0].toUpperCase() + 
-                    lists[mediaType].specialNames[currentEntryType].slice(1)}
+                {mediaTypes[mediaType].specialNames[currentEntryType][0].toUpperCase() + 
+                    mediaTypes[mediaType].specialNames[currentEntryType].slice(1)}
             </button>
             )}
             </div>

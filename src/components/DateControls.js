@@ -10,8 +10,8 @@ export const DateControls = ({ data, categories, displaySettings, utilities, ran
     const { setDateRange, setSelectedCreator } = displaySettings.handlers;
     const { dateRangeDefault, datesAreDefault } = utilities;
     const entries = data.entries[entryType];
-    const currentList = lists[mediaType].lists[list];
-    const shortTimePeriod = dateRangeDefault.end - currentList.startYear < 100;
+    const { currentListMetadata } = data;
+    const shortTimePeriod = dateRangeDefault.end - currentListMetadata.startYear < 100;
     const [dropdownToggle, setDropdownToggle] = useState('');
     const isEmpty = (start, end) => {
         if (!entries) {
@@ -35,7 +35,7 @@ export const DateControls = ({ data, categories, displaySettings, utilities, ran
         contextRange.start = dateRangeDefault.start;
         contextRange.end = dateRangeDefault.end;
     }
-    if (currentList.startYear < 1500 && range === 100) {
+    if (currentListMetadata.startYear < 1500 && range === 100) {
         contextRange.start = 1500;
         const label = 'Earlier';
         const handleSelect = () => {
@@ -64,7 +64,7 @@ export const DateControls = ({ data, categories, displaySettings, utilities, ran
         )
     }
     if (shortTimePeriod && range === 10) {
-        contextRange.start = Math.floor(currentList.startYear/10) * 10;
+        contextRange.start = Math.floor(currentListMetadata.startYear/10) * 10;
         contextRange.end = dateRangeDefault.end;
     }
     for (let i = contextRange.start; i < contextRange.end; i += range) {

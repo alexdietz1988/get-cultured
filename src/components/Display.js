@@ -1,5 +1,5 @@
 export const Display = ({ data, categories, displaySettings, utilities, userData }) => {
-  const { lists, entriesFiltered, entriesToDisplay } = data;
+  const { entriesFiltered, entriesToDisplay, currentListMetadata } = data;
   const { setNewFilters } = data.handlers;
   const { backend, userId, savedWorks, getSavedWorks } = userData;
   const { mediaType, entryType, list } = categories;
@@ -8,9 +8,8 @@ export const Display = ({ data, categories, displaySettings, utilities, userData
   const { setDateRange, setDisplayLimit, setSelectedCreator } = displaySettings.handlers;
   const { dateRangeDefault, displayYear } = utilities;
   const { setSavedSettings } = utilities.handlers;
-  const currentList = lists[mediaType].lists[list]
-  const creatorName = lists[mediaType].specialNames.creators;
-  const workName = lists[mediaType].specialNames.works;
+  const specialNames = utilities.mediaTypes[mediaType].specialNames;
+  const {creatorName, workName} = specialNames;
   const displayYearRange = (year, endYear) => {
     if (year === endYear) {
       return displayYear(year);
@@ -61,7 +60,7 @@ export const Display = ({ data, categories, displaySettings, utilities, userData
         <tr>
           <th>Rank</th>
           <th style={{width: '250px'}}>Title</th>
-          {!currentList.noCreators && <th style={{width: '250px'}}>
+          {!currentListMetadata.noCreators && <th style={{width: '250px'}}>
             {creatorName[0].toUpperCase() + creatorName.slice(1, -1)}
           </th>}
           <th>Year</th>
@@ -81,7 +80,7 @@ export const Display = ({ data, categories, displaySettings, utilities, userData
         return (<tr key={'item' + i}>
             <td>{entry.rank}</td>
             <td><em>{entry.title}</em></td>
-            {!currentList.noCreators && renderCreator}
+            {!currentListMetadata.noCreators && renderCreator}
             <td onClick={() => {
               setSelectedCreator('');
               setDateRange({start: entry.year, end: entry.year + 1});
@@ -127,7 +126,7 @@ export const Display = ({ data, categories, displaySettings, utilities, userData
   }
   const compactView = () => {
     const isUltraCompact = entryType === 'creators' || 
-      (entryType === 'works' && currentList.noCreators) ||
+      (entryType === 'works' && currentListMetadata.noCreators) ||
       (entryType === 'works' && selectedCreator)
     return (
     <section style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -148,7 +147,7 @@ export const Display = ({ data, categories, displaySettings, utilities, userData
                   <a>{entry.creator}</a>
                 </p>}
                 <p>
-                  <span className='mr-2'>{!currentList.noRanks && `#${entry.rank}, `}{displayYear(entry.year)}</span>
+                  <span className='mr-2'>{!currentListMetadata.noRanks && `#${entry.rank}, `}{displayYear(entry.year)}</span>
                 </p>
               </div>
             </div>

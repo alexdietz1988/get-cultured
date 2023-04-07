@@ -2,11 +2,16 @@ import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
-export const ListControls = ({ data, mediaType, list, setList }) => {
-    const { lists } = data;
+export const ListControls = ({ data, mediaType, list, setList, utilities }) => {
     const { setLoading } = data.handlers;
-    const listsInMediaType = lists[mediaType].lists;
-    const currentList = listsInMediaType[list];
+    const { listMetadata } = utilities;
+    const listsInMediaType = {};
+    for (let element in listMetadata) {
+        if (listMetadata[element].mediaType === mediaType) {
+            listsInMediaType[element] = listMetadata[element];
+        }
+    }
+    const currentListMetadata = listMetadata[list];
     const [dropdownToggle, setDropdownToggle] = useState('');
     return (
         <>
@@ -19,9 +24,9 @@ export const ListControls = ({ data, mediaType, list, setList }) => {
                     onClick={() => setDropdownToggle(dropdownToggle === 'is-active' ? '' : 'is-active')}
                     >
                     <span className='mr-1'>
-                        {currentList.label 
-                            ? currentList.label 
-                            : currentList[0].toUpperCase() + currentList.slice(1)}
+                        {currentListMetadata.label 
+                            ? currentListMetadata.label 
+                            : currentListMetadata[0].toUpperCase() + currentListMetadata.slice(1)}
                     </span> 
                     <i><FontAwesomeIcon icon={faChevronDown}/></i>
                 </button>
@@ -31,7 +36,7 @@ export const ListControls = ({ data, mediaType, list, setList }) => {
                     {Object.keys(listsInMediaType).map(item => (
                         <a
                             key={item}
-                            className={'dropdown-item ' + (currentList === item && 'is-active')}
+                            className={'dropdown-item ' + (currentListMetadata === item && 'is-active')}
                             onClick={() => {
                                 setList(item);
                                 setLoading(true);
@@ -43,12 +48,12 @@ export const ListControls = ({ data, mediaType, list, setList }) => {
                 </div>
             </div>
         </div>  
-            {(currentList.about || currentList.url) && 
+            {(currentListMetadata.about || currentListMetadata.url) && 
                 <p className='is-size-6 has-text-weight-light p-2'>
-                    {currentList.about && 
-                        <span className='mr-1'>{currentList.about}</span>}
-                    {currentList.url && 
-                        <span>(<a href={currentList.url}>Source</a>)</span>}
+                    {currentListMetadata.about && 
+                        <span className='mr-1'>{currentListMetadata.about}</span>}
+                    {currentListMetadata.url && 
+                        <span>(<a href={currentListMetadata.url}>Source</a>)</span>}
                 </p>
             }
         </>

@@ -1,23 +1,25 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { listMetadata } from "../getListData";
 
-export const MediaTypeControls = ({ data, categories, displaySettings }) => {
-    const { lists } = data;
+export const MediaTypeControls = ({ data, categories, displaySettings, utilities }) => {
     const { setLoading } = data.handlers;
     const { mediaType } = categories;
+    const { mediaTypes } = utilities;
     const { setMediaType, setList, setEntryType } = categories.handlers;
     const { setSelectedCreator, setDateRange } = displaySettings.handlers;
     const [dropdownToggle, setDropdownToggle] = useState('');
     function handleSelect(currentMediaType) {
         setMediaType(currentMediaType);
-        const newList = lists[currentMediaType].default;
-        setList(newList);
-        if (lists[currentMediaType].lists[newList].noCreators) {
+        const newListId = mediaTypes[currentMediaType].default;
+        const newListMetadata = listMetadata[newListId];
+        setList(newListId);
+        if (newListMetadata.noCreators) {
             setEntryType('works');
         }
         setDateRange({
-            start: lists[currentMediaType].lists[newList].startYear,
+            start: newListMetadata.startYear,
             end: new Date().getFullYear()
         })
         setSelectedCreator('');
@@ -40,18 +42,18 @@ export const MediaTypeControls = ({ data, categories, displaySettings }) => {
                 </div>
                 <div className='dropdown-menu' id='dropdown-menu' role='menu'>
                     <div className='dropdown-content'>
-                        {Object.keys(lists).map(item => (
+                        {Object.keys(mediaTypes).map((item, i) => (
                             <a
-                                key={item}
+                                key={i}
                                 className={'dropdown-item ' + (mediaType === item && 'is-active')}
                                 onClick={() => handleSelect(item)}>
-                                {lists[item].label ? lists[item].label : item[0].toUpperCase() + item.slice(1)}
+                                {item[0].toUpperCase() + item.slice(1)}
                             </a>))}
                     </div>
                 </div>
             </div> 
             <div className='desktop-only is-inline buttons mr-2 has-addons'>
-            {Object.keys(lists).map(currentMediaType => (
+            {Object.keys(mediaTypes).map(currentMediaType => (
                 <button
                 key={currentMediaType}
                 className={'button ' + (mediaType === currentMediaType && 'is-primary')}
@@ -60,8 +62,6 @@ export const MediaTypeControls = ({ data, categories, displaySettings }) => {
                 </button>
             ))}
             </div>
-
-             
         </>
     )
 }
