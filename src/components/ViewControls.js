@@ -10,29 +10,9 @@ export const ViewControls = ({ data, list, categories, displaySettings, userData
     const currentList = lists[mediaType].lists[list];
     const [searchInput, setSearchInput] = useState('');
     const { userId } = userData;
-    const renderFinishedButton = () => {
-        const lookup = {
-            all: { 
-                clickHandler: () => setFinishedFilter('onlyUnfinished'), 
-                label: 'Finished + Unfinished'
-            },
-            onlyUnfinished: { 
-                clickHandler: () => setFinishedFilter('onlyFinished'),
-                label: 'Unfinished'
-            },
-            onlyFinished: {
-                clickHandler: () => setFinishedFilter('all'),
-                label: 'Finished'
-            }
-        }
-        return (
-            <button className='button mr-4' onClick={lookup[finishedFilter].clickHandler}>
-                {lookup[finishedFilter].label}
-            </button>
-        )
-    }
     return (
         <>
+            <div className='mb-3'>
             {!currentList.noCreators &&
             <div className='is-inline mr-4 mb-0 buttons has-addons'>
             {['works', 'creators'].map(currentEntryType => 
@@ -65,7 +45,25 @@ export const ViewControls = ({ data, list, categories, displaySettings, userData
                 </span>
                 }
             </button>
-            {userId && renderFinishedButton()}
+            {userId && entryType === 'works' && (
+            <div className='buttons is-inline has-addons mr-4'>
+                <button 
+                    className={'button ' + (finishedFilter === 'all' && 'is-primary')} 
+                    onClick={() => setFinishedFilter('all')}>
+                    All
+                </button>
+                <button 
+                    className={'button ' + (finishedFilter === 'onlyUnfinished' && 'is-primary')} 
+                    onClick={() => setFinishedFilter('onlyUnfinished')}>
+                    Unfinished
+                </button>
+                <button 
+                    className={'button ' + (finishedFilter === 'onlyFinished' && 'is-primary')} 
+                    onClick={() => setFinishedFilter('onlyFinished')}>
+                    Finished
+                </button>
+            </div>)}
+            </div>
             <div className='search control has-icons-right'>
                 <input onChange={e => {
                   setSearchInput(e.target.value);
@@ -80,7 +78,7 @@ export const ViewControls = ({ data, list, categories, displaySettings, userData
                     setNewFilters(true);
                   }}/>
                 </span>}
-              </div>
+            </div>
         </>
     )
 }
