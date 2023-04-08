@@ -31,10 +31,7 @@ export const ViewControls = ({ data, categories, displaySettings, userData, util
             }
             <button
                 className={'button mr-4 ' + (view === 'compact' && 'is-primary')}
-                onClick={() => {
-                    setView(view === 'compact' ? 'table' : 'compact');
-                    setDisplayLimit(view === 'compact' ? 25 : 50);
-                    }}>
+                onClick={() => setView(view === 'compact' ? 'table' : 'compact')}>
                 <span>Compact</span>
                 {view === 'compact' && 
                 <span className="icon is-right">

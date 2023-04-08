@@ -1,12 +1,11 @@
-import { SignIn } from "./SignIn";
+import { SignIn } from "./Controls/SignIn";
+import { MediaTypeControls } from "./Controls/MediaTypeControls.js";
+import { ListControls } from "./Controls/ListControls.js"
+import { ViewControls } from "./Controls/ViewControls.js";
+import { DateControls } from "./Controls/DateControls.js";
+import { Tags } from "./Controls/Tags.js";
 
-import { MediaTypeControls } from "./MediaTypeControls.js";
-import { ListControls } from "./ListControls.js"
-import { ViewControls } from "./ViewControls.js";
-import { DateControls } from "./DateControls.js";
-import { Tags } from "./Tags.js";
-
-import { Display } from "./Display.js";
+import { EntriesDisplay } from "./Display/EntriesDisplay.js";
 
 export const RenderApp = ({ userData, data, categories, displaySettings, utilities }) => {
     const { loading, currentListMetadata } = data;
@@ -90,7 +89,7 @@ export const RenderApp = ({ userData, data, categories, displaySettings, utiliti
                     />
                 </div>
               </section>
-              <Display
+              <EntriesDisplay
                 data={data}
                 categories={categories}
                 displaySettings={displaySettings}

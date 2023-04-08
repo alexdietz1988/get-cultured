@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { listMetadata } from "../getListData";
+import { listMetadata } from "../../getListData";
 
 export const MediaTypeControls = ({ data, categories, displaySettings, utilities }) => {
     const { setLoading } = data
