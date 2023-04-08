@@ -4,11 +4,10 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { listMetadata } from "../getListData";
 
 export const MediaTypeControls = ({ data, categories, displaySettings, utilities }) => {
-    const { setLoading } = data.handlers;
-    const { mediaType } = categories;
+    const { setLoading } = data
+    const { mediaType, setMediaType, setList, setEntryType } = categories;
     const { mediaTypes } = utilities;
-    const { setMediaType, setList, setEntryType } = categories.handlers;
-    const { setSelectedCreator, setDateRange } = displaySettings.handlers;
+    const { setSelectedCreator, setDateRange } = displaySettings;
     const [dropdownToggle, setDropdownToggle] = useState('');
     function handleSelect(currentMediaType) {
         setMediaType(currentMediaType);

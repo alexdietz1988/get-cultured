@@ -18,10 +18,9 @@ const App = () => {
   const [entryType, setEntryType] = useState('works');
 
   const data = { 
-    lists, entries, entriesFiltered, entriesToDisplay, loading,
-    currentListMetadata: listMetadata[list], 
-    handlers: { setLoading, setNewFilters } };
-  const categories = { mediaType, list, entryType, handlers: { setMediaType, setList, setEntryType } };
+    lists, entries, entriesFiltered, entriesToDisplay, loading, setLoading, setNewFilters,
+    currentListMetadata: listMetadata[list]};
+  const categories = { mediaType, setMediaType, list, setList, entryType, setEntryType };
 
   const dateRangeDefault = {
     start: listMetadata[list].startYear,
@@ -35,8 +34,8 @@ const App = () => {
   const [finishedFilter, setFinishedFilter] = useState('all');
   const [displayLimit, setDisplayLimit] = useState(25);
   const displaySettings = {
-    view, displayLimit, dateRange, selectedCreator, query, finishedFilter,
-    handlers: { setView, setDisplayLimit, setDateRange, setSelectedCreator, setQuery, setFinishedFilter }
+    view, setView, displayLimit, setDisplayLimit, dateRange, setDateRange, 
+    selectedCreator, setSelectedCreator, query, setQuery, finishedFilter, setFinishedFilter,
   }
 
   const mediaTypes = {
@@ -59,7 +58,7 @@ const App = () => {
   }
   const [savedSettings, setSavedSettings] = useState({ mediaType, list, entryType, dateRange, view });
   const utilities = {
-    mediaTypes, listMetadata, dateRangeDefault, savedSettings, handlers: { setSavedSettings },
+    mediaTypes, listMetadata, dateRangeDefault, savedSettings, setSavedSettings,
     datesAreDefault: dateRange.start === dateRangeDefault.start && dateRange.end === dateRangeDefault.end,
     displayYear: year => year >= 0 ? year : Math.abs(year) + ' BC',
   }

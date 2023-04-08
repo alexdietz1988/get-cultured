@@ -1,9 +1,8 @@
 export const Tags = ({ data, categories, displaySettings, utilities }) => {
-    const { setNewFilters } = data.handlers;
-    const { setMediaType, setEntryType, setList } = categories.handlers;
+    const { setNewFilters } = data;
+    const { setMediaType, setEntryType, setList } = categories;
     const { dateRangeDefault, displayYear, savedSettings } = utilities;
-    const { dateRange, selectedCreator } = displaySettings;
-    const { setDateRange, setSelectedCreator, setView } = displaySettings.handlers;
+    const { dateRange, setDateRange, selectedCreator, setSelectedCreator, setView } = displaySettings;
     const defaultDates = (dateRange.start === dateRangeDefault.start) && 
         (dateRange.end === dateRangeDefault.end);
     function returnToSavedSettings() {

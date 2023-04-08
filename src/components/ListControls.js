@@ -2,8 +2,9 @@ import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
-export const ListControls = ({ data, mediaType, list, setList, utilities }) => {
-    const { setLoading } = data.handlers;
+export const ListControls = ({ data, categories, utilities }) => {
+    const { setLoading, currentListMetadata } = data;
+    const { setList, mediaType } = categories;
     const { listMetadata } = utilities;
     const listsInMediaType = {};
     for (let element in listMetadata) {
@@ -11,7 +12,6 @@ export const ListControls = ({ data, mediaType, list, setList, utilities }) => {
             listsInMediaType[element] = listMetadata[element];
         }
     }
-    const currentListMetadata = listMetadata[list];
     const [dropdownToggle, setDropdownToggle] = useState('');
     return (
         <>

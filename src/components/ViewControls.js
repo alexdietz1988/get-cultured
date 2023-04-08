@@ -1,12 +1,9 @@
 import { useState } from "react";
 
 export const ViewControls = ({ data, categories, displaySettings, userData, utilities }) => {
-    const { currentListMetadata } = data;
-    const { setNewFilters } = data.handlers;
-    const { entryType, mediaType } = categories;
-    const { setEntryType } = categories.handlers;
-    const { view, query, finishedFilter } = displaySettings;
-    const { setView, setDisplayLimit, setQuery, setSelectedCreator, setFinishedFilter } = displaySettings.handlers;
+    const { currentListMetadata, setNewFilters } = data;
+    const { entryType, setEntryType, mediaType } = categories;
+    const { view, setView, query, setQuery, finishedFilter, setFinishedFilter, setDisplayLimit, setSelectedCreator } = displaySettings;
     const [searchInput, setSearchInput] = useState('');
     const { userId } = userData;
     const { mediaTypes } = utilities;

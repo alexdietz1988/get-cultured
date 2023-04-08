@@ -1,13 +1,9 @@
 export const Display = ({ data, categories, displaySettings, utilities, userData }) => {
-  const { entriesFiltered, entriesToDisplay, currentListMetadata } = data;
-  const { setNewFilters } = data.handlers;
+  const { entriesFiltered, entriesToDisplay, currentListMetadata, setNewFilters } = data;
   const { backend, userId, savedWorks, getSavedWorks } = userData;
-  const { mediaType, entryType, list } = categories;
-  const { setEntryType } = categories.handlers;
-  const { dateRange, view, displayLimit, selectedCreator, finishedFilter } = displaySettings;
-  const { setDateRange, setDisplayLimit, setSelectedCreator } = displaySettings.handlers;
-  const { dateRangeDefault, displayYear } = utilities;
-  const { setSavedSettings } = utilities.handlers;
+  const { mediaType, entryType, setEntryType, list } = categories;
+  const { dateRange, setDateRange, view, displayLimit, setDisplayLimit, selectedCreator, setSelectedCreator, finishedFilter } = displaySettings;
+  const { dateRangeDefault, displayYear, setSavedSettings } = utilities;
   const specialNames = utilities.mediaTypes[mediaType].specialNames;
   const {creatorName, workName} = specialNames;
   const displayYearRange = (year, endYear) => {

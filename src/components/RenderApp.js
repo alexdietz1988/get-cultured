@@ -9,8 +9,6 @@ import { Tags } from "./Tags.js";
 import { Display } from "./Display.js";
 
 export const RenderApp = ({ userData, data, categories, displaySettings, utilities }) => {
-    const { mediaType, list } = categories;
-    const { setList } = categories.handlers;
     const { loading, currentListMetadata } = data;
     const renderDateControls = elementType => {
         const { dateRange } = displaySettings;
@@ -62,9 +60,7 @@ export const RenderApp = ({ userData, data, categories, displaySettings, utiliti
                 <div className='mb-3'>
                   <ListControls 
                       data={data}
-                      mediaType={mediaType} 
-                      list={categories.list} 
-                      setList={setList}
+                      categories={categories}
                       utilities={utilities}
                   />
                 </div>

@@ -3,14 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 export const DateControls = ({ data, categories, displaySettings, utilities, range, elementType }) => {
-    const { lists } = data;
-    const { setNewFilters } = data.handlers;
-    const { list, mediaType, entryType } = categories;
-    const { dateRange } = displaySettings;
-    const { setDateRange, setSelectedCreator } = displaySettings.handlers;
+    const { setNewFilters, currentListMetadata } = data;
+    const { entryType } = categories;
+    const { dateRange, setDateRange, setSelectedCreator } = displaySettings;
     const { dateRangeDefault, datesAreDefault } = utilities;
     const entries = data.entries[entryType];
-    const { currentListMetadata } = data;
     const shortTimePeriod = dateRangeDefault.end - currentListMetadata.startYear < 100;
     const [dropdownToggle, setDropdownToggle] = useState('');
     const isEmpty = (start, end) => {
