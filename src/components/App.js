@@ -11,14 +11,13 @@ const App = () => {
   const [lists, setLists] = useState({});
   const [entries, setEntries] = useState([]);
   const [entriesFiltered, setEntriesFiltered] = useState([]);
-  const [entriesToDisplay, setEntriesToDisplay] = useState([]);
 
   const [mediaType, setMediaType] = useState('literature');
   const [list, setList] = useState('greatestBooksFiction');
   const [entryType, setEntryType] = useState('works');
 
   const data = { 
-    lists, entries, entriesFiltered, entriesToDisplay, loading, setLoading, setNewFilters,
+    lists, entries, entriesFiltered, loading, setLoading, newFilters, setNewFilters,
     currentListMetadata: listMetadata[list]};
   const categories = { mediaType, setMediaType, list, setList, entryType, setEntryType };
 
@@ -32,9 +31,9 @@ const App = () => {
   const [selectedCreator, setSelectedCreator] = useState('');
   const [view, setView] = useState('compact');
   const [finishedFilter, setFinishedFilter] = useState('all');
-  const [displayLimit, setDisplayLimit] = useState(25);
+
   const displaySettings = {
-    view, setView, displayLimit, setDisplayLimit, dateRange, setDateRange, 
+    view, setView, dateRange, setDateRange, 
     selectedCreator, setSelectedCreator, query, setQuery, finishedFilter, setFinishedFilter,
   }
 
@@ -79,7 +78,6 @@ const App = () => {
       }
     }
     setEntriesFiltered(filtered);
-    setEntriesToDisplay(filtered.slice(0, displayLimit));
   }
   useEffect(() => {
       if (loading) {
@@ -98,10 +96,8 @@ const App = () => {
       } else if (newFilters) {
         applyFilters();
         setNewFilters(false);
-      } else {
-        setEntriesToDisplay(entriesFiltered.slice(0, displayLimit))
       }
-  }, [loading, newFilters, displayLimit])
+  }, [loading, newFilters])
 
   const backend = axios.create({ baseURL: 'http://localhost:4000/' });
   const [userId, setUserId] = useState('');

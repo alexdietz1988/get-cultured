@@ -1,11 +1,17 @@
+import { useEffect, useState } from "react";
+
 export const Display = ({ data, categories, displaySettings, utilities, userData }) => {
-  const { entriesFiltered, entriesToDisplay, currentListMetadata, setNewFilters } = data;
+  const { entriesFiltered, currentListMetadata, newFilters, setNewFilters } = data;
   const { backend, userId, savedWorks, getSavedWorks } = userData;
   const { mediaType, entryType, setEntryType, list } = categories;
-  const { dateRange, setDateRange, view, displayLimit, setDisplayLimit, selectedCreator, setSelectedCreator, finishedFilter } = displaySettings;
+  const { dateRange, setDateRange, view, selectedCreator, setSelectedCreator, finishedFilter } = displaySettings;
   const { dateRangeDefault, displayYear, setSavedSettings } = utilities;
   const specialNames = utilities.mediaTypes[mediaType].specialNames;
-  const {creatorName, workName} = specialNames;
+  const creatorName = specialNames.creators;
+  const workName = specialNames.works;
+  const [displayLimit, setDisplayLimit] = useState(25);
+  const entriesToDisplay = entriesFiltered.slice(0, displayLimit);
+  useEffect(() => setDisplayLimit(25), [newFilters])
   const displayYearRange = (year, endYear) => {
     if (year === endYear) {
       return displayYear(year);
