@@ -1,8 +1,8 @@
 export const EntriesCompact = ({ categories, data, displaySettings, utilities, displayProps }) => {
-    const { renderFinishedStatus, isFinished, displayYearRange, displayLimit, setDisplayLimit } = displayProps;
+    const { renderFinishedStatus, hideEntry, hiddenMessage, displayYearRange, displayLimit, loadMoreButton } = displayProps;
     const { entryType, setEntryType, mediaType, list } = categories
     const { currentListMetadata, setNewFilters, entriesFiltered } = data;
-    const { dateRange, setDateRange, view, selectedCreator, setSelectedCreator, finishedFilter, setFinishedFilter } = displaySettings;
+    const { dateRange, setDateRange, view, selectedCreator, setSelectedCreator } = displaySettings;
     const { setSavedSettings, dateRangeDefault, displayYear } = utilities;
     const isUltraCompact = entryType === 'creators' || 
         (entryType === 'works' && currentListMetadata.noCreators) ||
@@ -10,27 +10,27 @@ export const EntriesCompact = ({ categories, data, displaySettings, utilities, d
     const renderWork = (entry, i) => {
         const { title, creator, year } = entry;
         return (
-        <div key={i} style={{ display: 'flex', alignItems: 'flex-start' }}>
-            <div className='is-inline-block mr-2'>
-                <p>{title}</p>
-                <div className='has-text-weight-light'>
-                {(creator && selectedCreator !== creator) &&
-                <p onClick={() => {
-                    setSavedSettings({ mediaType, list, entryType, dateRange, view });
-                    setDateRange(dateRangeDefault);
-                    setSelectedCreator(creator);
-                    setNewFilters(true);
-                    }}>
-                    <a>{creator}</a>
-                </p>}
-                <p>
-                    <span className='mr-2'>{!currentListMetadata.noRanks && `#${entry.rank}, `}{displayYear(year)}</span>
-                </p>
+            <div key={i} style={{ display: 'flex', alignItems: 'flex-start' }}>
+                <div className='is-inline-block mr-2'>
+                    <p>{title}</p>
+                    <div className='has-text-weight-light'>
+                    {(creator && selectedCreator !== creator) &&
+                    <p onClick={() => {
+                        setSavedSettings({ mediaType, list, entryType, dateRange, view });
+                        setDateRange(dateRangeDefault);
+                        setSelectedCreator(creator);
+                        setNewFilters(true);
+                        }}>
+                        <a>{creator}</a>
+                    </p>}
+                    <p>
+                        <span className='mr-2'>{!currentListMetadata.noRanks && `#${entry.rank}, `}{displayYear(year)}</span>
+                    </p>
+                    </div>
                 </div>
-            </div>
-            <div className='is-inline-block'>
-                {renderFinishedStatus(title, creator, year)}
-            </div>
+                <div className='is-inline-block'>
+                    {renderFinishedStatus(title, creator, year)}
+                </div>
             </div>
             )
         }
@@ -52,15 +52,10 @@ export const EntriesCompact = ({ categories, data, displaySettings, utilities, d
     )
     const renderEntries = [];
     let hiddenCount = 0;
-    let hideEntry = false;
     for (let i = 0; i < entriesFiltered.length && renderEntries.length < displayLimit; i++) {
         const entry = entriesFiltered[i];
-        hideEntry = entryType === 'works' && 
-            (isFinished(entry) && finishedFilter === 'onlyUnfinished') ||
-            (!isFinished(entry) && finishedFilter === 'onlyFinished')
-        if (hideEntry) {
+        if (hideEntry(entry)) {
             hiddenCount++;
-            hideEntry = false;
         } else {
             renderEntries.push(
                 <div
@@ -79,11 +74,9 @@ export const EntriesCompact = ({ categories, data, displaySettings, utilities, d
         {renderEntries}
         {entriesFiltered.length - hiddenCount > renderEntries.length && 
         <div className={'entry-compact is-flex is-justify-content-center is-align-items-center'}>
-            <button className='button' onClick={() => setDisplayLimit(displayLimit + 50)}>
-                Load more
-            </button>
+            {loadMoreButton}
         </div>}
-        {renderEntries.length === 0 && <span>Some works are being hidden by your filters. <a onClick={() => setFinishedFilter('all')}>Reset filters.</a></span>}
+        {renderEntries.length === 0 && hiddenMessage}
     </section>
     )
 }

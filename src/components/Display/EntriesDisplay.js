@@ -7,7 +7,7 @@ export const EntriesDisplay = ({ data, categories, displaySettings, utilities, u
   const { entriesFiltered, newFilters } = data;
   const { backend, userId, savedWorks, getSavedWorks } = userData;
   const { mediaType, entryType } = categories;
-  const { view } = displaySettings;
+  const { view, finishedFilter, setFinishedFilter } = displaySettings;
   const { displayYear } = utilities;
   const specialNames = utilities.mediaTypes[mediaType].specialNames;
   const creatorName = specialNames.creators;
@@ -59,13 +59,19 @@ export const EntriesDisplay = ({ data, categories, displaySettings, utilities, u
     )
   }
   const loadMoreButton = (
-    <div className={'container is-flex is-justify-content-center is-align-items-center'}>
-      <button className='button' onClick={() => setDisplayLimit(displayLimit + 50)}>
-        Load more
-      </button>
-    </div>
+    <button className='button' onClick={() => setDisplayLimit(displayLimit + 50)}>
+      Load more
+    </button>
   )
-  const displayProps = {renderFinishedStatus, isFinished, displayLimit, setDisplayLimit, displayYearRange, loadMoreButton };
+  const hideEntry = entry => {
+    return (
+        entryType === 'works' && 
+        (isFinished(entry) && finishedFilter === 'onlyUnfinished') ||
+        (!isFinished(entry) && finishedFilter === 'onlyFinished')
+    )
+  }
+  const hiddenMessage = <span>Some works are being hidden by your filters. <a onClick={() => setFinishedFilter('all')}>Reset filters.</a></span>;
+  const displayProps = {renderFinishedStatus, isFinished, hideEntry, displayLimit, setDisplayLimit, displayYearRange, loadMoreButton, hiddenMessage };
 return (
     <section className='section pt-0'>
       {entryType === 'creators' &&
