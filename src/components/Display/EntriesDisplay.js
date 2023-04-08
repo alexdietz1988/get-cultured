@@ -13,7 +13,6 @@ export const EntriesDisplay = ({ data, categories, displaySettings, utilities, u
   const creatorName = specialNames.creators;
   const workName = specialNames.works;
   const [displayLimit, setDisplayLimit] = useState(25);
-  const entriesToDisplay = entriesFiltered.slice(0, displayLimit);
   useEffect(() => setDisplayLimit(25), [newFilters])
   const displayYearRange = (year, endYear) => {
     if (year === endYear) {
@@ -24,7 +23,8 @@ export const EntriesDisplay = ({ data, categories, displaySettings, utilities, u
       return `${displayYear(year)}–${displayYear(endYear)}`;
     }
   }
-  const isFinished = (title, creator, year) => {
+  const isFinished = entry => {
+    const { title, creator, year } = entry;
     return savedWorks.some(el => 
       el.title === title && 
       el.creator === creator && 
@@ -58,20 +58,20 @@ export const EntriesDisplay = ({ data, categories, displaySettings, utilities, u
       </div>
     )
   }
-  const displayProps = {renderFinishedStatus, isFinished, entriesToDisplay, displayYearRange };
   const loadMoreButton = (
-    <div className={'container is-flex is-justify-content-center'}>
+    <div className={'container is-flex is-justify-content-center is-align-items-center'}>
       <button className='button' onClick={() => setDisplayLimit(displayLimit + 50)}>
         Load more
       </button>
     </div>
   )
+  const displayProps = {renderFinishedStatus, isFinished, displayLimit, setDisplayLimit, displayYearRange, loadMoreButton };
 return (
     <section className='section pt-0'>
       {entryType === 'creators' &&
         <p className='is-size-7 ml-3'>Rank (e.g. "#1") is that of {creatorName.slice(0,-1)}'s highest ranked work.
         Dates are those of the {creatorName.slice(0,-1)}'s {workName} in the current list.</p>}
-      {(entriesToDisplay.length > 0) && (
+      {(entriesFiltered.length > 0) && (
           <>
             {view === 'table' 
               ? <EntriesTable 
@@ -88,7 +88,6 @@ return (
                   utilities={utilities}
                   displayProps={displayProps}
                   />}
-            {entriesFiltered.length > displayLimit && loadMoreButton}
           </>
         )
       }
