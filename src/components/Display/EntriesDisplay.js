@@ -31,22 +31,20 @@ export const EntriesDisplay = ({ data, categories, displaySettings, utilities, u
       el.status === 'finished'
       )
   }
-  const markAsFinished = async (title, creator, year) => {
-    await backend.post('savedWork', {userId, title, creator, year, status: 'finished'});
-    getSavedWorks();
-  }
-  const markAsUnfinished = async (title, creator, year) => {
-    await backend.post('savedWork', {userId, title, creator, year, status: 'unfinished'});
+  const markFinishedOrUnfinished = async (title, creator, year, isFinished) => {
+    await backend.post('savedWork', {
+      userId, title, creator, year, 
+      status: isFinished ? 'unfinished' : 'finished'
+    });
     getSavedWorks();
   }
   const renderFinishedStatus = (title, creator, year) => {
     if (userId === '') return <></>;
+    const entryIsFinished = isFinished(title, creator, year);
     return (
       <div 
-          className={'tag is-info ' + (!isFinished(title, creator, year) && 'is-light')}
-          onClick={() => isFinished(title, creator, year)
-            ? markAsUnfinished(title, creator, year)
-            : markAsFinished(title, creator, year)}>
+          className={'tag is-info ' + (!entryIsFinished && 'is-light')}
+          onClick={() => markFinishedOrUnfinished(title, creator, year, entryIsFinished)}>
           ✓
         </div>
     );
@@ -56,11 +54,11 @@ export const EntriesDisplay = ({ data, categories, displaySettings, utilities, u
       Load more
     </button>
   )
-  const hideEntry = entry => {
+  const hideEntry = ({ title, creator, year }) => {
     return (
         entryType === 'works' && 
-        (isFinished(entry) && finishedFilter === 'onlyUnfinished') ||
-        (!isFinished(entry) && finishedFilter === 'onlyFinished')
+        (isFinished(title, creator, year) && finishedFilter === 'onlyUnfinished') ||
+        (!isFinished(title, creator, year) && finishedFilter === 'onlyFinished')
     )
   }
   const hiddenMessage = <span>Some works are being hidden by your filters. <a onClick={() => setFinishedFilter('all')}>Reset filters.</a></span>;
