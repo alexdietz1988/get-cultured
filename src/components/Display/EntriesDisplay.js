@@ -23,8 +23,7 @@ export const EntriesDisplay = ({ data, categories, displaySettings, utilities, u
       return `${displayYear(year)}–${displayYear(endYear)}`;
     }
   }
-  const isFinished = entry => {
-    const { title, creator, year } = entry;
+  const isFinished = (title, creator, year) => {
     return savedWorks.some(el => 
       el.title === title && 
       el.creator === creator && 
@@ -41,22 +40,16 @@ export const EntriesDisplay = ({ data, categories, displaySettings, utilities, u
     getSavedWorks();
   }
   const renderFinishedStatus = (title, creator, year) => {
-    if (userId === '') {
-      return <></>;
-    } else if (isFinished(title, creator, year)) {
-      return (
-        <div 
-          className='tag is-info'
-          onClick={() => markAsUnfinished(title, creator, year)}>
+    if (userId === '') return <></>;
+    return (
+      <div 
+          className={'tag is-info ' + (!isFinished(title, creator, year) && 'is-light')}
+          onClick={() => isFinished(title, creator, year)
+            ? markAsUnfinished(title, creator, year)
+            : markAsFinished(title, creator, year)}>
           ✓
-        </div>);
-    } else return (
-      <div
-        className='tag is-info is-light'
-        onClick={() => markAsFinished(title, creator, year)}>
-        ✓
-      </div>
-    )
+        </div>
+    );
   }
   const loadMoreButton = (
     <button className='button' onClick={() => setDisplayLimit(displayLimit + 50)}>
