@@ -99,8 +99,8 @@ const App = () => {
       }
   }, [loading, newFilters])
 
-  const backend = axios.create({ baseURL: 'http://localhost:4000/' });
-  const [userId, setUserId] = useState('646897e8818f5d7630baccd9');
+  const backend = axios.create({ baseURL: 'https://get-cultured-backend.herokuapp.com/' });
+  const [userId, setUserId] = useState('');
   const [savedWorks, setSavedWorks] = useState([]);
   const getSavedWorks = async () => {
     const response = await backend.get(`savedWork/?userId=${userId}`);
