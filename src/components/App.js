@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
-import axios from 'axios'
+import { Routes, Route, useLocation } from "react-router";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 import { RenderApp } from "./RenderApp";
+import { SignIn } from "./SignIn";
 import { processList, listMetadata } from "../getListData";
 
 const App = () => {
+  const path = useLocation().pathname;
   const [loading, setLoading] = useState(true);
   const [newFilters, setNewFilters] = useState(false);
 
@@ -100,7 +104,8 @@ const App = () => {
   }, [loading, newFilters])
 
   const backend = axios.create({ baseURL: 'https://get-cultured-backend.herokuapp.com/' });
-  const [userId, setUserId] = useState('');
+  const storedUserId = sessionStorage.getItem('userId');
+  const [userId, setUserId] = useState(storedUserId ? storedUserId : '');
   const [savedWorks, setSavedWorks] = useState([]);
   const getSavedWorks = async () => {
     const response = await backend.get(`savedWork/?userId=${userId}`);
@@ -110,12 +115,46 @@ const App = () => {
   const userData = { backend, userId, setUserId, savedWorks, getSavedWorks };
 
   return (
-    <RenderApp 
-      userData={userData} 
-      data={data} 
-      categories={categories} 
-      displaySettings={displaySettings}
-      utilities={utilities} />)
+    <>
+      <header>
+        <nav className='navbar mb-2' role='navigation' aria-label='main navigation'>
+          <div className='navbar-brand'>
+            <a className='navbar-item pl-0'>
+              <Link to='/'><span className='title is-5'>Get Cultured</span></Link>
+            </a>
+            {path !== '/signin' && <div className='navbar-item'>
+              {userId
+              ? (
+                <div className='button is-warning' onClick={() => {
+                  setUserId('');
+                  sessionStorage.removeItem('userId');
+                }}>Logout
+                </div>)
+              : <Link to='/signin' className='button is-primary'>Signin</Link>}
+            </div>}
+          </div>
+        </nav>
+        <h2 className='subtitle is-6'>Explore selected lists of great works of art</h2>
+      </header>
+
+      <Routes>
+        <Route path="/" element={<RenderApp 
+          userData={userData} 
+          data={data} 
+          categories={categories} 
+          displaySettings={displaySettings}
+          utilities={utilities} />} />
+        <Route path="/signin" element={<SignIn userData={userData} />} />
+      </Routes>
+
+      <footer className='footer'>
+        <div className='content has-text-centered'>
+          <strong>Get Cultured</strong> by <a href="https://alexdietz.com/">Alex Dietz</a>.
+          The favicon is from <a href="https://www.flaticon.com/free-icons/book" title="book icons">Freepik - Flaticon</a>.
+        </div>
+      </footer>
+    </>
+  )
 }
 
 export default App;
