@@ -1,4 +1,3 @@
-import { SignIn } from "./Controls/SignIn";
 import { MediaTypeControls } from "./Controls/MediaTypeControls.js";
 import { ListControls } from "./Controls/ListControls.js"
 import { ViewControls } from "./Controls/ViewControls.js";
@@ -32,10 +31,6 @@ export const RenderApp = ({ userData, data, categories, displaySettings, utiliti
 
     return (
         <>
-          <div className='section pb-0'>
-            <h1 className='title'>Get Cultured</h1>
-            <h2 className='subtitle'>Explore selected lists of great works of art</h2>
-          </div>
           { loading 
             ? (
               <div style={{height: '90vh'}} className='section is-flex is-justify-content-center is-align-items-center'>
@@ -45,9 +40,6 @@ export const RenderApp = ({ userData, data, categories, displaySettings, utiliti
             : (
             <>
               <section className='section pb-2'>
-                <div className='mb-3'>
-                  <SignIn userData={userData}/>
-                </div>
                 <div className='mb-3'>
                   <MediaTypeControls
                     data={data}
@@ -100,11 +92,6 @@ export const RenderApp = ({ userData, data, categories, displaySettings, utiliti
             )
           }
           
-          <footer className='footer'>
-            <div className='content has-text-centered'>
-              <strong>Get Cultured</strong> by <a href="https://alexdietz.com/">Alex Dietz</a>.
-              The favicon is from <a href="https://www.flaticon.com/free-icons/book" title="book icons">Freepik - Flaticon</a>.
-            </div>
-          </footer>
+
         </>)
 }
